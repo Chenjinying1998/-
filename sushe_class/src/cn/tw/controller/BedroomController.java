@@ -8,9 +8,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,15 +128,32 @@ public class BedroomController {
 		return "/br/create.jsp";
 	}
 	@RequestMapping("/br/create.action")
-	public String create(Bedroom br, Model model) {
+	public String create(Bedroom br, Model model,HttpServletRequest request) {
 		br.setBedroomId(UUID.randomUUID().toString().substring(0, 8));
-		br.setStatus("Y");
+		String totalBed=request.getParameter("totalBed");
+		int total=Integer.parseInt(totalBed);
+		if(total<6) {
+			br.setStatus("N");
+		}
+		else if(total==6) {
+			br.setStatus("Y");
+		}
+		else br.setStatus("超员");
 		bedroomService.insert(br);
 		return "redirect:/br/list.action";
 	}
 	
 	@RequestMapping("/br/update.action")
-	public String update(Bedroom br, Model model) {
+	public String update(Bedroom br, Model model,HttpServletRequest request) {
+		String totalBed=request.getParameter("totalBed");
+		int total=Integer.parseInt(totalBed);
+		if(total<6) {
+			br.setStatus("N");
+		}
+		else if(total==6) {
+			br.setStatus("Y");
+		}
+		else br.setStatus("超员");
 		bedroomService.update(br);
 		return "redirect:/br/list.action";
 	}

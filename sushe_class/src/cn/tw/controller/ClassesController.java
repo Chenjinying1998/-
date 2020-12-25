@@ -75,6 +75,9 @@ public class ClassesController {
 		
 		List<Classes> dataList=classesService.findPage(page);
 		model.addAttribute("dataList", dataList);
+		
+		List<College> colleges=collegeService.findPage(page);
+		model.addAttribute("colleges", colleges);
 		return "/cla/list.jsp";
 	}
   public void getTotalPage(Page page){

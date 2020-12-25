@@ -44,7 +44,7 @@
 						</script>
 					</li>
 					</if>-->
-					<input type="text" placeholder="N未住满，Y住满" id="arg" value="${arg}" name="arg"
+					<input type="text" placeholder="N未住满，Y住满,超员" id="arg" value="${arg}" name="arg"
 						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" /> 
 						<a href="#" class="button border-main icon-search"
 						onclick="Sear()"> 搜索</a></li>

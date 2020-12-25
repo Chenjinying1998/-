@@ -68,7 +68,7 @@
 
       <div class="form-group">
         <div class="label">
-          <label>公寓名称：</label>
+          <label>宿舍名称：</label>
         </div>
            <div class="field">
           <input type="text"  class="input" name="bedroomName" value="${obj.bedroomName}"/>
