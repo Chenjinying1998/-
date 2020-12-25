@@ -36,7 +36,7 @@ public class HomeController {
 		map.put("name",name);
 		map.put("password",password);
 		
-		//List<Student> list2=studentService.find(map);
+		List<Student> list2=studentService.find(map);
 		List<Manager> list=managerService.find(map);
 		if(list.size()>=1){
 			Manager manager= list.get(0);
@@ -44,15 +44,12 @@ public class HomeController {
 			return home(manager.getManagerName(), "manager", model, httpSession);
 			
 		}else {
-			if(list.size()<1){
+			if(list2.size()<1){
 				return "redirect:/tologin.action";
 			}else{
-				//Student student= list2.get(0);
-				Manager manager= list.get(0);
-				httpSession.setAttribute("user", manager);
-				return home(manager.getManagerName(), "manager", model, httpSession);
-				//httpSession.setAttribute("user", student);
-				//return home(student.getStudentName(), "student", model, httpSession);
+				Student student= list2.get(0);
+				httpSession.setAttribute("user", student);
+				return home(student.getStudentName(), "student", model, httpSession);
 			}
 		}
 	}

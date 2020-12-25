@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../basic/base.jsp"%>
 <!DOCTYPE html>
 
@@ -66,10 +66,10 @@
 									class="input"	style="width:100px; margin-left:0px;line-height:17px;display:inline-block" value="${key}"/> 
 									<a href="#" class="button border-main icon-search"
 									onclick="Sear()">搜索</a></li>
-									<a href="#" class="button border-main icon-search"
-									onclick="Reset()">重置</a>					
-									<a href="#" class="button border-main icon-search" style="margin-left:80px;"
-									onclick="FinalSearch()">综合查询</a>					
+									<li><a href="#" class="button border-main icon-search"
+									onclick="Reset()">重置</a>	</li>				
+									<li><a href="#" class="button border-main icon-search" style="margin-left:80px;"
+									onclick="FinalSearch()">综合查询</a>	</li>				
 					
 					</c:if>
 					

@@ -47,7 +47,7 @@ public class BedroomController {
 			else brNNum++;
 		}
 		JSONObject json= new JSONObject();
-		json.put("tips2","璇ュ叕瀵撳叡鏈夊鑸�"+brNum+"闂达紝鍏朵腑鏈夌┖搴婁綅鐨勬湁"+brYNum+"闂� 锛� 鏈�澶氳兘鍒嗛厤缁�"+5*brYNum+"浣嶅鐢熷眳浣�");
+		json.put("tips2","该公寓共有宿舍"+brNum+"间，其中有空床位的有"+brYNum+"间 ， 最多能分配给"+5*brYNum+"位学生居住");
 		model.addAttribute("data",json.toString());
 		return "/cla/getdata.jsp";
 	}
@@ -128,7 +128,7 @@ public class BedroomController {
 	@RequestMapping("/br/create.action")
 	public String create(Bedroom br, Model model) {
 		br.setBedroomId(UUID.randomUUID().toString().substring(0, 8));
-		br.setStatus("N");
+		br.setStatus("Y");
 		bedroomService.insert(br);
 		return "redirect:/br/list.action";
 	}

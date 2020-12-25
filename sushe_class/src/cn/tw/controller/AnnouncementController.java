@@ -28,15 +28,12 @@ public class AnnouncementController {
 
 	@RequestMapping("/anno/list.action")
 	public String annolist(String totalPage,String date,String key,Integer pageNo,Model model) throws UnsupportedEncodingException {
-		Map map = new HashMap();
-		if(UtilFuns.isNotEmpty(date)){
-			map.put("date", date);
-		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 		if(key!=null) key=URLDecoder.decode(key, "UTF-8");
 		map.put("key", "%"+key+"%");
-		model.addAttribute("date",date);
 		model.addAttribute("key",key);
-		Page page= new Page();
+		Page<Object> page= new Page<Object>();
 		page.setParams(map);
 		if(pageNo==null) pageNo=1;
 		else if(pageNo<1) pageNo=1;
@@ -56,7 +53,9 @@ public class AnnouncementController {
 		model.addAttribute("page",page);
 		
 		List<Announcement> dataList=announcementService.findPage(page);
+		
 		model.addAttribute("dataList", dataList);
+		System.out.println(dataList);
 		return "/anno/list.jsp";
 	}
 	public void getTotalPage(Page page){

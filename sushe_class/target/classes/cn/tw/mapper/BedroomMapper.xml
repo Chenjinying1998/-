@@ -27,20 +27,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
  
- 			SELECT r.bedroom_id , r.apartment_id ,  r.bedroom_name,r.status,r.total_bed  
-				 FROM (   SELECT tt.*, @ROWNUM AS rowno   
-				          FROM (   
-                           select bedroom_id , apartment_id ,  bedroom_name,status,total_bed
+ 			  
+                           select *
                            from bedroom          
                            where 1=1
                            <if test="params.arg!=null">and status=#{params.arg,jdbcType=VARCHAR}</if>
                            <if test="params.key!='%null%'">and bedroom_name like #{params.key,jdbcType=VARCHAR}</if>
-                           order by bedroom_name
-				                 
-			                    )tt   
-				                WHERE #{pageSize}*#{pageNo} >=@ROWNUM   
-				                ) r
-				   WHERE r.rowno >= #{pageSize}*(#{pageNo}-1) +1
+                        
 	</select>	
 	
 	<select id="findResultSize" parameterType="cn.tw.pagination.Page" resultType="java.lang.String">

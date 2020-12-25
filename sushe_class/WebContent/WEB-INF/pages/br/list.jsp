@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../basic/base.jsp"%>
 <!DOCTYPE html>
 
@@ -23,21 +23,31 @@
 						href="${ctx}/br/tocreate.action"> 添加内容</a>
 					</c:if>
 						</li>
-					<if condition="$iscid eq 1">
-					<li>
+					<!-- <if condition="$iscid eq 1">
+					
+					 <li>
 						<select name="arg" id="arg" class="input"
 							style="margin-left:30px;width:250px; line-height:17px;">
 								<option value="">按是否住满分类</option>
 								<option value="N" onclick="sel(this.value)">没住满</option>
 								<option value="Y" onclick="sel(this.value)">住满</option>
+								
 						</select>
+						
 						<script type="text/javascript">
+						
 							function sel(arg){
-								$("select[name='arg']").val(arg);
+								
+								window.location.href='${ctx}/br/list.action?arg='+arg; 
+								
 							}
 						</script>
 					</li>
-					</if>
+					</if>-->
+					<input type="text" placeholder="N未住满，Y住满" id="arg" value="${arg}" name="arg"
+						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" /> 
+						<a href="#" class="button border-main icon-search"
+						onclick="Sear()"> 搜索</a></li>
 					<li><input type="text" placeholder="请输入搜索关键字" id="key" value="${key}"
 						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" /> 
 						<a href="#" class="button border-main icon-search"
@@ -131,14 +141,14 @@
 		
 	
 		$(".pagelist a").each(function() {
-			if (${page.pageNo}==this.text) {
+			if ('${page.pageNo}'==this.text) {
 				$(this).css({ 
 					"color":"#FFF",
 					"background-color":"#09F",
 					"border-color": "#09F"
   				});
 			}
-			if(${page.totalPage}<this.text) {
+			if('${page.totalPage}'<this.text) {
 				 $(this).attr('href', '#');   
 				$(this).css({ 
 					display:"none"
@@ -146,12 +156,12 @@
 			}
 		});
 
-		if(${page.pageNo}==${page.totalPage}) {
+		if('${page.pageNo}'=='${page.totalPage}') {
 			$(".pagelist .xiaye").css({ 
 				display:"none"
  			});
 		}
-		if(${page.pageNo}==1) {
+		if('${page.pageNo}'==1) {
 			$(".pagelist .shangye").css({ 
 				display:"none"
  			});
@@ -264,8 +274,8 @@
 					dateTye:'text',
 					data : {
 						sb : ff,
-						pageNo : ${page.pageNo-1},
-						totalPage : ${page.totalPage-1}
+						pageNo : '${page.pageNo-1}',
+						totalPage : '${page.totalPage-1}'
 					},
 					success:function(msg){
 					},error:function(){

@@ -66,7 +66,7 @@ public class StatisticsController {
 	@RequestMapping("/statis/disbystu.action")
 	public String disbystu(Model model,String stuId,String bedroomId){
 		if(stuId==null||bedroomId==null||stuId.length()<1||bedroomId.length()<1){ 
-			model.addAttribute("info","璇烽�夋嫨寰呭垎閰嶇殑瀛︾敓鍜屽悎閫傜殑瀹胯垗"); return "/statis/sInfo2.jsp";  
+			model.addAttribute("info","请选择待分配的学生和合适的宿舍"); return "/statis/sInfo2.jsp";  
 		} 
 		Student student= studentService.get(stuId);
 		Bedroom oldBedroom= bedroomService.get(student.getBedroomId());
@@ -85,11 +85,11 @@ public class StatisticsController {
 			bedroom.setTotalBed( (num+1)+"/"+bedroom.getTotalBed().split("/")[1]); 
 			if((num+1)==Integer.valueOf(bedroom.getTotalBed().split("/")[1]) ) bedroom.setStatus("Y");
 			else  bedroom.setStatus("N");}
-		else { model.addAttribute("info","璇ュ鑸嶅凡缁忔弧鍛橈紝璇峰彟閫�"); return "/statis/sInfo2.jsp";  } 
+		else { model.addAttribute("info","该宿舍已经满员，请另选"); return "/statis/sInfo2.jsp";  } 
 		studentService.update(student);
 		bedroomService.update(oldBedroom);
 		bedroomService.update(bedroom);
-		model.addAttribute("info",student.getStudentName()+" 鍒嗛厤鍒颁簡瀹胯垗锛�"+bedroom.getBedroomName());
+		model.addAttribute("info",student.getStudentName()+" 分配到了宿舍："+bedroom.getBedroomName());
 		return "/statis/sInfo2.jsp";
 	}
 	@RequestMapping("/statis/toempbystu.action")
@@ -101,11 +101,11 @@ public class StatisticsController {
 	@RequestMapping("/statis/empbystu.action")
 	public String empbystu(Model model, String stuId){
 		if(stuId==null || stuId.length()<1) { 
-			model.addAttribute("info","璇烽�夋嫨寰呯Щ鍑哄叕瀵撶殑瀛︾敓"); return "/statis/sInfo2.jsp";  
+			model.addAttribute("info","请选择待移出公寓的学生"); return "/statis/sInfo2.jsp";  
 		}
 		Student student = studentService.get(stuId);
 		if(student.getBedroomId()==null) {
-			model.addAttribute("info","璇ュ鐢熷皻鏈垎閰嶅鑸嶏紝璇疯繑鍥炴煡鐪嬶紒");
+			model.addAttribute("info","该学生尚未分配宿舍，请返回查看！");
 			return "/statis/sInfo2.jsp";
 		}
 		Bedroom bedroom= bedroomService.get(student.getBedroomId());
@@ -115,7 +115,7 @@ public class StatisticsController {
 		bedroom.setTotalBed( (Integer.valueOf(bedroom.getTotalBed().split("/")[0])-1)+"/" + bedroom.getTotalBed().split("/")[1] ) ;
 		studentService.update(student);
 		bedroomService.update(bedroom);
-		model.addAttribute("info",student.getStudentName()+" 琚垚鍔熺Щ鍑哄鑸嶏細"+bedroom.getBedroomName());
+		model.addAttribute("info",student.getStudentName()+" 被成功移出宿舍："+bedroom.getBedroomName());
 		return "/statis/sInfo2.jsp";
 	}
 	
@@ -123,29 +123,29 @@ public class StatisticsController {
 	
 	@RequestMapping("/toprintstu.action")
 	public String  toprintstu(Model model){
-		model.addAttribute("info","鏁伴噺搴炲ぇ锛岃涓嬭浇excel鏂囦欢鏌ョ湅");
+		model.addAttribute("info","数量庞大，请下载excel文件查看");
 		model.addAttribute("code","printstu");
 		return "/statis/sInfo2.jsp";
 	}
 	@RequestMapping("/printstu.action")
 	public String  printstu( HttpServletResponse response) throws IOException{
 		List<Student> list= studentService.find(null);
-		String[] strs={"", "濮撳悕", "瀹胯垗", "鏄惁鍒嗛厤瀹胯垗(Y/N)", "鎬у埆","瀛﹀彿", "鐝骇", "瀛﹂櫌", "骞寸骇" };
-		toExcel(response, "鎵�鏈夊鐢熶俊鎭�", strs, list);
+		String[] strs={"", "姓名", "宿舍", "是否分配宿舍(Y/N)", "性别","学号", "班级", "学院", "年级" };
+		toExcel(response, "所有学生信息", strs, list);
 		return "";
 	}
 	
 	@RequestMapping("/toprintbr.action")
 	public String  toprintbr(Model model){
-		model.addAttribute("info","鏁伴噺搴炲ぇ锛岃涓嬭浇excel鏂囦欢鏌ョ湅");
+		model.addAttribute("info","数量庞大，请下载excel文件查看");
 		model.addAttribute("code","printbr");
 		return "/statis/sInfo2.jsp";
 	}
 	@RequestMapping("/printbr.action")
 	public String  printbr( HttpServletResponse response) throws IOException{
 		List<Bedroom> list= bedroomService.find(null);
-		String[] strs={"", "瀹胯垗鍚嶇О", "鍏ヤ綇鎯呭喌", "鎵�鍦ㄥ叕瀵�","瀹胯垗鍒嗛厤鐘舵��" };
-		toBrExcel(response, "鎵�鏈夊鑸嶄俊鎭�", strs, list);
+		String[] strs={"", "宿舍名称", "入住情况", "所在公寓","宿舍分配状态" };
+		toBrExcel(response, "所有宿舍信息", strs, list);
 		return "";
 	}
 	
@@ -164,8 +164,8 @@ public class StatisticsController {
 			map.put("collegeId", arg);
 		}
 		List<Student> studentlist= studentService.find(map);
-		String[] strs={"", "濮撳悕", "瀹胯垗", "鏄惁鍒嗛厤瀹胯垗(Y/N)", "鎬у埆","瀛﹀彿", "鐝骇", "瀛﹂櫌", "骞寸骇" };
-		toExcel(response, "瀹胯垗鍒嗛厤鎯呭喌琛�",strs,	studentlist);
+		String[] strs={"", "姓名", "宿舍", "是否分配宿舍(Y/N)", "性别","学号", "班级", "学院", "年级" };
+		toExcel(response, "宿舍分配情况表",strs,	studentlist);
 		return "";
 	}
 	
@@ -206,18 +206,18 @@ public class StatisticsController {
 				switch (j) {
 				case 1:
 					cell.setCellValue(obj.getBedroomName() != null ? obj
-							.getBedroomName() + "" : "绌�");
+							.getBedroomName() + "" : "空");
 					break;
 				case 2:
 					cell.setCellValue(obj.getTotalBed() != null ? obj.getTotalBed()
-							+ "" : "绌�");
+							+ "" : "空");
 					break;
 				case 3:
-					cell.setCellValue( obj.getBedroomName()!= null ? obj.getBedroomName().substring(0,2)+"鏍�" : "绌�");
+					cell.setCellValue( obj.getBedroomName()!= null ? obj.getBedroomName().substring(0,2)+"栋" : "空");
 					break;
 				case 4:
 					cell.setCellValue(obj.getStatus() != null ? obj
-							.getStatus() + "" : "绌�");
+							.getStatus() + "" : "空");
 					break;
 			}
 			}			
@@ -279,35 +279,35 @@ public class StatisticsController {
 				switch (j) {
 				case 1:
 					cell.setCellValue(obj.getStudentName() != null ? obj
-							.getStudentName() + "" : "绌�");
+							.getStudentName() + "" : "空");
 					break;
 				case 2:
 					cell.setCellValue(obj.getBedroomName() != null ? obj.getBedroomName()
-							+ "" : "绌�");
+							+ "" : "空");
 					break;
 				case 3:
 					cell.setCellValue(obj.getStatus() != null ? obj.getStatus()
-							+ "" : "绌�");
+							+ "" : "空");
 					break;
 				case 4:
 					cell.setCellValue(obj.getSex() != null ? obj
-							.getSex() + "" : "绌�");
+							.getSex() + "" : "空");
 					break;
 				case 5:
 					cell.setCellValue(obj.getStudentNo() != null ? obj
-							.getStudentNo() + "" : "绌�");
+							.getStudentNo() + "" : "空");
 					break;
 				case 6:
 					cell.setCellValue(obj.getClassName() != null ? obj
-							.getClassName() + "" : "绌�");
+							.getClassName() + "" : "空");
 					break;
 				case 7:
 					cell.setCellValue(obj.getCollegeName() != null ? obj.getCollegeName() + ""
-							: "绌�");
+							: "空");
 					break;
 				case 8:
 					cell.setCellValue(obj.getGrade() != null ? obj.getGrade() + ""
-							: "绌�");
+							: "空");
 					break;
 				}
 			}
@@ -391,15 +391,15 @@ public class StatisticsController {
 		int numG=0,disG=0;
 		
 		for(Student student:stuList){
-			if(student.getSex().equals("鐢�")) numB++;else numG++; 
+			if(student.getSex().equals("男")) numB++;else numG++; 
 			if(student.getStatus().equals("Y")) {
-				if(student.getSex().equals("鐢�")) disB++;else disG++;
+				if(student.getSex().equals("男")) disB++;else disG++;
 			}else {
 			}
 		}
-		info+="璇ュ闄㈠叡鏈�"+(numB+numG)+"浜猴紝鍏朵腑鐢风敓"+numB+"浜猴紝濂崇敓"+numG+"浜� <br/>";
-		info+="鍏朵腑宸茬粡鍒嗛厤鍒板鑸嶇殑鏈�"+(disB+disG)+"浜猴紝鍏朵腑鐢风敓"+disB+"浜猴紝濂崇敓"+disG+"浜� <br/>";
-		info+="鍏朵腑娌℃湁鍒嗛厤瀹胯垗鐨勬湁"+(numB+numG-disB-disG)+"浜猴紝鍏朵腑鐢风敓"+(numB-disB)+"浜猴紝濂崇敓"+(numG-disG)+"浜� <br/>";
+		info+="该学院共有"+(numB+numG)+"人，其中男生"+numB+"人，女生"+numG+"人 <br/>";
+		info+="其中已经分配到宿舍的有"+(disB+disG)+"人，其中男生"+disB+"人，女生"+disG+"人 <br/>";
+		info+="其中没有分配宿舍的有"+(numB+numG-disB-disG)+"人，其中男生"+(numB-disB)+"人，女生"+(numG-disG)+"人 <br/>";
 		
 		model.addAttribute("infoList",stuList);
 		model.addAttribute("info",info);
@@ -426,15 +426,15 @@ public class StatisticsController {
 		int numG=0,disG=0;
 		
 		for(Student student:stuList){
-			if(student.getSex().equals("鐢�")) numB++;else numG++; 
+			if(student.getSex().equals("男")) numB++;else numG++; 
 			if(student.getStatus().equals("Y")) {
-				if(student.getSex().equals("鐢�")) disB++;else disG++;
+				if(student.getSex().equals("男")) disB++;else disG++;
 			}else {
 			}
 		}
-		info+="璇ョ彮绾у叡鏈�"+(numB+numG)+"浜猴紝鍏朵腑鐢风敓"+numB+"浜猴紝濂崇敓"+numG+"浜� <br/>";
-		info+="鍏朵腑宸茬粡鍒嗛厤鍒板鑸嶇殑鏈�"+(disB+disG)+"浜猴紝鍏朵腑鐢风敓"+disB+"浜猴紝濂崇敓"+disG+"浜� <br/>";
-		info+="鍏朵腑娌℃湁鍒嗛厤瀹胯垗鐨勬湁"+(numB+numG-disB-disG)+"浜猴紝鍏朵腑鐢风敓"+(numB-disB)+"浜猴紝濂崇敓"+(numG-disG)+"浜� <br/>";
+		info+="该班级共有"+(numB+numG)+"人，其中男生"+numB+"人，女生"+numG+"人 <br/>";
+		info+="其中已经分配到宿舍的有"+(disB+disG)+"人，其中男生"+disB+"人，女生"+disG+"人 <br/>";
+		info+="其中没有分配宿舍的有"+(numB+numG-disB-disG)+"人，其中男生"+(numB-disB)+"人，女生"+(numG-disG)+"人 <br/>";
 		
 		model.addAttribute("infoList",stuList);
 		model.addAttribute("info",info);
@@ -474,10 +474,10 @@ public class StatisticsController {
 		int numGirl=0;
 				
 		for(Student student:stuList){
-			if(student.getSex().equals("鐢�")) numBoy++;else numGirl++;
+			if(student.getSex().equals("男")) numBoy++;else numGirl++;
 		}
 		
-		info+="璇ュ闄㈠叡鏈�"+(numBoy+numGirl)+"浜猴紝鍏朵腑鐢风敓"+numBoy+"浜猴紝濂崇敓"+numGirl+"浜�<br/>";
+		info+="该学院共有"+(numBoy+numGirl)+"人，其中男生"+numBoy+"人，女生"+numGirl+"人<br/>";
 		
 		model.addAttribute("info",info);
 		model.addAttribute("infoList",stuList);
@@ -505,10 +505,10 @@ public class StatisticsController {
 		int numGirl=0;
 				
 		for(Student student:stuList){
-			if(student.getSex().equals("鐢�")) numBoy++;else numGirl++;
+			if(student.getSex().equals("男")) numBoy++;else numGirl++;
 		}
 		
-		info+="璇ョ彮绾у叡鏈�"+(numBoy+numGirl)+"浜猴紝鍏朵腑鐢风敓"+numBoy+"浜猴紝濂崇敓"+numGirl+"浜�<br/>";
+		info+="该班级共有"+(numBoy+numGirl)+"人，其中男生"+numBoy+"人，女生"+numGirl+"人<br/>";
 		
 		model.addAttribute("info",info);
 		model.addAttribute("infoList",stuList);
@@ -523,20 +523,20 @@ public class StatisticsController {
 	
 	@RequestMapping("/statis/empbycollege.action")
 	public String empbycollege(String classId,Model model){
-		String info="瀹胯垗鑵剧┖鎯呭喌:<br>";
+		String info="宿舍腾空情况:<br>";
 		Map<String, String> map= new HashMap<String,String>();
 		if(UtilFuns.isNotEmpty(classId)) {  map.put("collegeId", classId); } else classId=null;
 		map.put("status", "Y");
 		List<Student> studentList= studentService.find(map);
 		if(studentList.size()<1){
-			info+="璇ュ闄㈡墍鏈夊鐢熼兘娌″垎閰嶅埌瀹胯垗<br/>";
+			info+="该学院所有学生都没分配到宿舍<br/>";
 			model.addAttribute("info",info);
 			return "/statis/info.jsp";
 		}
 
 		for(Student student:studentList){
 			info+="< "+student.getStudentName()+" "+student.getClassName()+" "+
-				  student.getCollegeName()+"> 璇ュ鐢熻鑵剧┖鍑�"+student.getBedroomName()+"瀹胯垗<br/>";
+				  student.getCollegeName()+"> 该学生被腾空出"+student.getBedroomName()+"宿舍<br/>";
 			Bedroom bedroom=bedroomService.get(student.getBedroomId());
 			bedroom.setStatus("N");
 			bedroom.setTotalBed("0/5");
@@ -553,21 +553,21 @@ public class StatisticsController {
 	
 	@RequestMapping("/statis/empbyclass.action")
 	public String empbyclass(String classId,Model model){
-		String info="瀹胯垗鑵剧┖鎯呭喌:<br>";
+		String info="宿舍腾空情况:<br>";
 		Map<String, String> map= new HashMap<String,String>();
 		if(UtilFuns.isNotEmpty(classId)) {  map.put("classId", classId); } else classId=null;
 		map.put("status", "Y");
 		
 		List<Student> studentList= studentService.find(map);
 		if(studentList.size()<1){
-			info+="璇ョ彮绾ф墍鏈夊鐢熼兘娌″垎閰嶅埌瀹胯垗<br/>";
+			info+="该班级所有学生都没分配到宿舍<br/>";
 			model.addAttribute("info",info);
 			return "/statis/info.jsp";
 		}
 
 		for(Student student:studentList){
 			info+="<"+student.getStudentName()+" "+student.getClassName()+" "+
-				  student.getCollegeName()+"> 璇ュ鐢熻鑵剧┖鍑�"+student.getBedroomName()+"瀹胯垗<br/>";
+				  student.getCollegeName()+"> 该学生被腾空出"+student.getBedroomName()+"宿舍<br/>";
 			Bedroom bedroom=bedroomService.get(student.getBedroomId());
 			bedroom.setStatus("N");
 			bedroom.setTotalBed("0/5");
@@ -591,18 +591,18 @@ public class StatisticsController {
 		
 		if(UtilFuns.isNotEmpty(classId)) {  map.put("classId", classId); } else classId=null;
 		if(UtilFuns.isNotEmpty(sex1)) {  
-			if(sex1.equals("b")) map.put("sex1", "鐢�");
-			else if(sex1.equals("g")) map.put("sex1", "濂�");
+			if(sex1.equals("b")) map.put("sex1", "男");
+			else if(sex1.equals("g")) map.put("sex1", "女");
 		} else sex1=null;
 		if(UtilFuns.isNotEmpty(sex2)) {  
-			if(sex2.equals("b")) map.put("sex2", "鐢�");
-			else if(sex2.equals("g")) map.put("sex2", "濂�");
+			if(sex2.equals("b")) map.put("sex2", "男");
+			else if(sex2.equals("g")) map.put("sex2", "女");
 		} else sex2=null;
 		
 		if(UtilFuns.isNotEmpty(apartmentId)) {  map.put("apartmentId", apartmentId); } else apartmentId=null;
 		if(UtilFuns.isNotEmpty(apartmentId2)) {  map.put("apartmentId2", apartmentId2); } else apartmentId2=null;
 		
-		String info="<br/>瀹胯垗鍒嗛厤鎯呭喌<br/><br/>";
+		String info="<br/>宿舍分配情况<br/><br/>";
 		int forBrIndex=-1;
 		int studentIndex=0;
 		
@@ -612,11 +612,11 @@ public class StatisticsController {
 		Map paraMap=new HashMap();
 		paraMap.put("collegeId",classId);
 		paraMap.put("status","N");
-		paraMap.put("sex","鐢�");
+		paraMap.put("sex","男");
 		List<Student> boyStudentList=studentService.find(paraMap);
 		int studentNum=boyStudentList.size(); 
 		int forBrNum=( (studentNum*1.0/5-studentNum/5)<0.0001?studentNum/5:studentNum/5+1);
-		info+="鐢风敓锛歕n<br/>";
+		info+="男生：\n<br/>";
 		Map paraMap1=new HashMap();
 		paraMap1.put("status","N");
 		paraMap1.put("apmId",apartmentId);
@@ -627,10 +627,10 @@ public class StatisticsController {
 			if(studentIndex%5==1) forBrIndex++;
 			Bedroom br;
 			if(forBrIndex==bedroomList1.size()-1  ) {
-				info+="鐢变簬璇ュ叕瀵撳鑸嶅凡鍒嗛厤婊★紝璇ュ闄㈤儴鍒嗙敺鍚屽鏈垎閰嶅埌瀹胯垗 锛岀◢鍚庤鍐嶆涓轰粬浠垎閰嶅鑸�!<br/>";
+				info+="由于该公寓宿舍已分配满，该学院部分男同学未分配到宿舍 ，稍后请再次为他们分配宿舍!<br/>";
 				break;
 			}else if (bedroomList1.size()==0){
-				info+="鐢变簬璇ュ叕瀵撳鑸嶅凡鍒嗛厤婊★紝璇ュ闄㈤儴鍒嗙敺鍚屽鏈垎閰嶅埌瀹胯垗 锛岀◢鍚庤鍐嶆涓轰粬浠垎閰嶅鑸�!<br/>";
+				info+="由于该公寓宿舍已分配满，该学院部分男同学未分配到宿舍 ，稍后请再次为他们分配宿舍!<br/>";
 				break;
 			}
 			else{
@@ -643,12 +643,12 @@ public class StatisticsController {
 			br.setStatus("Y");
 			br.setTotalBed( (studentIndex%5==0?5:studentIndex%5)+"/5");
 			bedroomService.update(br);
-			info+=student.getClassName()+" : "+student.getStudentName()+"   鍒嗛厤鐨勫鑸�    "+br.getBedroomName()+"<br/>";
+			info+=student.getClassName()+" : "+student.getStudentName()+"   分配的宿舍    "+br.getBedroomName()+"<br/>";
 		}
 		
 		
 		
-		info+="<br/> 濂崇敓锛�<br/>";
+		info+="<br/> 女生：<br/>";
 		
 		forBrIndex=-1;
 		studentIndex=0;
@@ -656,12 +656,12 @@ public class StatisticsController {
 		Map paraMap11=new HashMap();
 		paraMap11.put("collegeId",classId);
 		paraMap11.put("status","N");
-		paraMap11.put("sex","濂�");
+		paraMap11.put("sex","女");
 		List<Student> girlStudentList=studentService.find(paraMap11);
 		int studentNum2=girlStudentList.size(); 
 		int forBrNum2=( (studentNum2*1.0/5-studentNum2/5)<0.0001?studentNum2/5:studentNum2/5+1);
-		System.out.println("璇ュ闄㈡湭鍒嗛厤瀹胯垗鐨勫コ鐢熶汉鏁�:"+studentNum2);
-		System.out.println("鑷冲皯闇�瑕佸鑸嶉棿鏁�:"+forBrNum2);
+		System.out.println("该学院未分配宿舍的女生人数:"+studentNum2);
+		System.out.println("至少需要宿舍间数:"+forBrNum2);
 		
 		Map paraMap2=new HashMap();
 		paraMap2.put("status","N");
@@ -674,7 +674,7 @@ public class StatisticsController {
 			if(studentIndex%5==1) forBrIndex++;
 			Bedroom br;
 			if(forBrIndex==bedroomList2.size()-1  || bedroomList2.size()==0  ) {
-				info+="鐢变簬璇ュ叕瀵撳鑸嶅凡鍒嗛厤婊★紝璇ュ闄㈤儴鍒嗙敺鍚屽鏈垎閰嶅埌瀹胯垗 锛岀◢鍚庤鍐嶆涓轰粬浠垎閰嶅鑸�!<br/>";
+				info+="由于该公寓宿舍已分配满，该学院部分男同学未分配到宿舍 ，稍后请再次为他们分配宿舍!<br/>";
 				break;
 			}else{
 				br=bedroomList2.get(forBrIndex);
@@ -686,10 +686,10 @@ public class StatisticsController {
 			br.setStatus("Y");
 			br.setTotalBed((studentIndex%5==0?5:studentIndex%5)+"/5");
 			bedroomService.update(br);
-			info+=student.getClassName()+" : "+student.getStudentName()+"   鍒嗛厤鐨勫鑸�     "+br.getBedroomName()+"<br/>";
+			info+=student.getClassName()+" : "+student.getStudentName()+"   分配的宿舍     "+br.getBedroomName()+"<br/>";
 		}
 		
-		info+="<br/>浠ヤ笂鍚屽鎴愬姛鍒嗛厤鍒板鑸�<br/><br/>";
+		info+="<br/>以上同学成功分配到宿舍<br/><br/>";
 		System.out.println(info);		
 		model.addAttribute("info",info);
 		
@@ -703,18 +703,18 @@ public class StatisticsController {
 		
 		if(UtilFuns.isNotEmpty(classId)) {  map.put("classId", classId); } else classId=null;
 		if(UtilFuns.isNotEmpty(sex1)) {  
-			if(sex1.equals("b")) map.put("sex1", "鐢�");
-			else if(sex1.equals("g")) map.put("sex1", "濂�");
+			if(sex1.equals("b")) map.put("sex1", "男");
+			else if(sex1.equals("g")) map.put("sex1", "女");
 		} else sex1=null;
 		if(UtilFuns.isNotEmpty(sex2)) {  
-			if(sex2.equals("b")) map.put("sex2", "鐢�");
-			else if(sex2.equals("g")) map.put("sex2", "濂�");
+			if(sex2.equals("b")) map.put("sex2", "男");
+			else if(sex2.equals("g")) map.put("sex2", "女");
 		} else sex2=null;
 		
 		if(UtilFuns.isNotEmpty(apartmentId)) {  map.put("apartmentId", apartmentId); } else apartmentId=null;
 		if(UtilFuns.isNotEmpty(apartmentId2)) {  map.put("apartmentId2", apartmentId2); } else apartmentId2=null;
 
-		String info="<br/>瀹胯垗鍒嗛厤鎯呭喌<br/><br/>";
+		String info="<br/>宿舍分配情况<br/><br/>";
 		int forBrIndex=-1;
 		int studentIndex=0;
 		
@@ -724,14 +724,14 @@ public class StatisticsController {
 		Map paraMap=new HashMap();
 		paraMap.put("classId",classId);
 		paraMap.put("status","N");
-		paraMap.put("sex","鐢�");
+		paraMap.put("sex","男");
 		List<Student> boyStudentList=studentService.find(paraMap);
 		int studentNum=boyStudentList.size(); 
 		int forBrNum=( (studentNum*1.0/5-studentNum/5)<0.0001?studentNum/5:studentNum/5+1);
-		System.out.println("璇ョ彮绾ф湭鍒嗛厤瀹胯垗鐨勭敺鐢熶汉鏁�:"+studentNum);
-		System.out.println("鑷冲皯闇�瑕佸鑸嶉棿鏁�:"+forBrNum);
+		System.out.println("该班级未分配宿舍的男生人数:"+studentNum);
+		System.out.println("至少需要宿舍间数:"+forBrNum);
 
-		info+="鐢风敓锛歕n<br/>";
+		info+="男生：\n<br/>";
 		
 		Map paraMap1=new HashMap();
 		paraMap1.put("status","N");
@@ -743,7 +743,7 @@ public class StatisticsController {
 			if(studentIndex%5==1) forBrIndex++;
 			Bedroom br;
 			if(forBrIndex==studentNum-1) {
-				info+="鐢变簬璇ュ叕瀵撳鑸嶅凡鍒嗛厤婊★紝璇ョ彮绾ч儴鍒嗙敺鍚屽鏈垎閰嶅埌瀹胯垗 锛岀◢鍚庤鍐嶆涓轰粬浠垎閰嶅鑸�!<br/>";
+				info+="由于该公寓宿舍已分配满，该班级部分男同学未分配到宿舍 ，稍后请再次为他们分配宿舍!<br/>";
 //				apartmentService.get(apartmentId).set
 				break;
 			}else{
@@ -756,12 +756,12 @@ public class StatisticsController {
 			br.setStatus("Y");
 			br.setTotalBed( (studentIndex%5==0?5:studentIndex%5)+"/5");
 			bedroomService.update(br);
-			info+=student.getStudentName()+" 鍒嗛厤鐨勫鑸� "+br.getBedroomName()+"<br/>";
+			info+=student.getStudentName()+" 分配的宿舍 "+br.getBedroomName()+"<br/>";
 		}
 		
 		
 		
-		info+="<br/> 濂崇敓锛�<br/>";
+		info+="<br/> 女生：<br/>";
 		
 		forBrIndex=-1;
 		studentIndex=0;
@@ -769,12 +769,12 @@ public class StatisticsController {
 		Map paraMap11=new HashMap();
 		paraMap11.put("classId",classId);
 		paraMap11.put("status","N");
-		paraMap11.put("sex","濂�");
+		paraMap11.put("sex","女");
 		List<Student> girlStudentList=studentService.find(paraMap11);
 		int studentNum2=girlStudentList.size(); 
 		int forBrNum2=( (studentNum2*1.0/5-studentNum2/5)<0.0001?studentNum2/5:studentNum2/5+1);
-		System.out.println("璇ョ彮绾ф湭鍒嗛厤瀹胯垗鐨勫コ鐢熶汉鏁�:"+studentNum2);
-		System.out.println("鑷冲皯闇�瑕佸鑸嶉棿鏁�:"+forBrNum2);
+		System.out.println("该班级未分配宿舍的女生人数:"+studentNum2);
+		System.out.println("至少需要宿舍间数:"+forBrNum2);
 
 		Map paraMap2=new HashMap();
 		paraMap2.put("status","N");
@@ -787,7 +787,7 @@ public class StatisticsController {
 			if(studentIndex%5==1) forBrIndex++;
 			Bedroom br;
 			if(forBrIndex==studentNum2-1) {
-				info+="鐢变簬璇ュ叕瀵撳鑸嶅凡鍒嗛厤婊★紝璇ュ闄㈤儴鍒嗗コ鍚屽鏈垎閰嶅埌瀹胯垗 锛岀◢鍚庤鍐嶆涓轰粬浠垎閰嶅鑸�!<br/>";
+				info+="由于该公寓宿舍已分配满，该学院部分女同学未分配到宿舍 ，稍后请再次为他们分配宿舍!<br/>";
 				break;
 			}else{
 				br=bedroomList2.get(forBrIndex);
@@ -799,10 +799,10 @@ public class StatisticsController {
 			br.setStatus("Y");
 			br.setTotalBed((studentIndex%5==0?5:studentIndex%5)+"/5");
 			bedroomService.update(br);
-			info+=student.getStudentName()+" 鍒嗛厤鐨勫鑸� "+br.getBedroomName()+"<br/>";
+			info+=student.getStudentName()+" 分配的宿舍 "+br.getBedroomName()+"<br/>";
 		}
 		
-		info+="<br/>浠ヤ笂鍚屽鎴愬姛鍒嗛厤鍒板鑸�<br/><br/>";
+		info+="<br/>以上同学成功分配到宿舍<br/><br/>";
 		System.out.println(info);		
 		model.addAttribute("info",info);
 		
@@ -818,13 +818,13 @@ public class StatisticsController {
 			for(int i=0;i<33;i++){
 				Classes cla= new Classes();
 				cla.setClassId(UUID.randomUUID().toString().substring(0,8));
-				cla.setClassName("1"+(int)(Math.random()*100000)+"鐝�");
-				cla.setCoach("鍒樿緟瀵煎憳");
+				cla.setClassName("1"+(int)(Math.random()*100000)+"班");
+				cla.setCoach("刘辅导员");
 				cla.setCoachCall("1379880086");
-				if(i<3)	cla.setGrade("澶т竴");
-				else if(i<13) cla.setGrade("澶т簩");
-				else if(i<20) cla.setGrade("澶т笁");
-				else if(i<33) cla.setGrade("澶у洓");
+				if(i<3)	cla.setGrade("大一");
+				else if(i<13) cla.setGrade("大二");
+				else if(i<20) cla.setGrade("大三");
+				else if(i<33) cla.setGrade("大四");
 				cla.setCollegeId(college.getCollegeId());
 				classesService.insert(cla);
 			}
@@ -848,12 +848,12 @@ public class StatisticsController {
 				if(i<10){
 					Student student= new Student();
 					student.setStudentId(UUID.randomUUID().toString().substring(0,8));
-					student.setStudentName("寮犵編涓�"+(int)(Math.random()*1000));
+					student.setStudentName("张美丽"+(int)(Math.random()*1000));
 					student.setClassId(c.getClassId());
 					student.setClassName(c.getClassName());
 					student.setCollegeId(c.getCollegeId());
 					student.setCollegeName(collegeService.get(c.getCollegeId()).getCollegeName());
-					student.setSex("濂�");
+					student.setSex("女");
 					
 					student.setGrade(c.getGrade());
 					
@@ -865,12 +865,12 @@ public class StatisticsController {
 				}else {
 					Student student= new Student();
 					student.setStudentId(UUID.randomUUID().toString().substring(0,8));
-					student.setStudentName("鐗涗簩"+UUID.randomUUID().toString().substring(0,3));
+					student.setStudentName("牛二"+UUID.randomUUID().toString().substring(0,3));
 					student.setClassId(c.getClassId());
 					student.setClassName(c.getClassName());
 					student.setCollegeId(c.getCollegeId());
 					student.setCollegeName(collegeService.get(c.getCollegeId()).getCollegeName());
-					student.setSex("鐢�");
+					student.setSex("男");
 					student.setGrade(c.getGrade());
 					student.setStudentNo("130"+(int)(Math.random()*1000000) );
 					student.setStatus("N");
@@ -893,14 +893,14 @@ public class StatisticsController {
 			
 			a.setApartmentId(UUID.randomUUID().toString().substring(0,8));
 			a.setApartmentName(i+"A");
-			if(i<=5) a.setSex("濂�");else a.setSex("鐢�");
+			if(i<=5) a.setSex("女");else a.setSex("男");
 			a.setTotalFloor("7");
 			a.setTotalPeople("0");
 			apartmentService.insert(a);
 			
 			a.setApartmentId(UUID.randomUUID().toString().substring(0,8));
 			a.setApartmentName(i+"B");
-			if(i<=5) a.setSex("濂�");else a.setSex("鐢�");
+			if(i<=5) a.setSex("女");else a.setSex("男");
 			a.setTotalFloor("7");
 			a.setTotalPeople("0");
 			apartmentService.insert(a);
@@ -908,7 +908,7 @@ public class StatisticsController {
 			
 			a.setApartmentId(UUID.randomUUID().toString().substring(0,8));
 			a.setApartmentName(i+"C");
-			if(i<=5) a.setSex("濂�");else a.setSex("鐢�");
+			if(i<=5) a.setSex("女");else a.setSex("男");
 			a.setTotalFloor("7");
 			a.setTotalPeople("0");
 			apartmentService.insert(a);

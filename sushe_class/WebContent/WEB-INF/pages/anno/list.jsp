@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8" isELIgnored="false" %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../basic/base.jsp"%>
+
 <!DOCTYPE html>
 
 <html lang="zh-cn">
@@ -23,8 +26,8 @@
 						href="${ctx}/anno/tocreate.action"> 添加内容</a>
 					</c:if>
 						</li>
-					<if condition="$iscid eq 1">
-					<li>
+					  <if condition="$iscid eq 1">
+					<!--<li>
 						<select name="date" class="input" id="arg"
 							style="margin-left:30px;width:250px; line-height:17px;">
 								<option value="">按日期分类</option>
@@ -35,7 +38,7 @@
 						<script type="text/javascript">
 							$("select[name='date']").val("${date}");
 						</script>
-					</li>
+					</li>-->
 					</if>
 					<li><input type="text" placeholder="请输入搜索关键字" id="key" value="${key}"
 						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" /> 
@@ -44,6 +47,7 @@
 				</ul>
 			</div>
 			<table class="table table-hover text-center">
+			
 				<tr>
 					<th width="5%"></th>
 					<th width="20%">时间</th>
@@ -51,8 +55,13 @@
 					 
 					<th width="200">操作</th>
 				</tr>
-
+			
+								<%
+System.out.println("lllllll"+request.getAttribute("dataList") );
+%>
 				<c:forEach items="${dataList}" var="obj" varStatus="status">
+			
+				
 					<tr class="leirong">
 						<td style="text-align:left; padding-left:20px;"><input
 							type="checkbox" name="announcementId"
@@ -74,6 +83,7 @@
 							</div></td>
 					</tr>
 				</c:forEach>
+				
 	
 				<tr>
 					<td style="text-align:left; padding:19px 0;padding-left:20px;">
@@ -129,27 +139,27 @@
 	
 	
 		$(".pagelist a").each(function() {
-			if (${page.pageNo}==this.text) {
+			if ('${page.pageNo}'==this.text) {
 				$(this).css({ 
 					"color":"#FFF",
 					"background-color":"#09F",
 					"border-color": "#09F"
   				});
 			}
-			if(${page.totalPage}<this.text) {
-				 $(this).attr('href', '#');   
+			if('${page.totalPage}'<this.text) {
+				 $(this).attr('href', '#');  
 				$(this).css({ 
 					display:"none"
   				});
 			}
 		});
 
-		if(${page.pageNo}==${page.totalPage}) {
+		if('${page.pageNo}'=='${page.totalPage}') {
 			$(".pagelist .xiaye").css({ 
 				display:"none"
  			});
 		}
-		if(${page.pageNo}==1) {
+		if('${page.pageNo}'==1) {
 			$(".pagelist .shangye").css({ 
 				display:"none"
  			});
@@ -186,7 +196,7 @@
 		//下拉列表 分类
 		function selectdate(arg){
 			window.location.href='${ctx}/anno/list.action?date='+arg; 
-		/* 	if(arg!=null){
+			/* if(arg!=null){
 				$.ajax({
 					type : 'post',
 					url : '${ctx}/anno/list.action', 
@@ -197,8 +207,8 @@
 					}
 				});
 			
-			}
-		 */		
+			} */
+		 		
 		}									
 		
 	
@@ -263,8 +273,8 @@
 					dateTye:'text',
 					data : {
 						sb : ff,
-						pageNo : ${page.pageNo-1},
-						totalPage : ${page.totalPage-1}
+						pageNo : '${page.pageNo-1}',
+						totalPage : '${page.totalPage-1}'
 					},
 					success:function(msg){
 					},error:function(){

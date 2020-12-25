@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="basic/base.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -26,8 +27,8 @@
       </h1>
   </div>
   <div class="head-l"><a class="button button-little bg-green" href="#" target="_blank">
-	  <span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
-	  <a href="#" class="button button-little bg-blue">
+	  <!-- <span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
+	  <a href="#" class="button button-little bg-blue"> -->
 	  <span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;
 	  <a class="button button-little bg-red" href="${ctx}/logout.action">
 	  <span class="icon-power-off"></span> 退出登录</a> 
