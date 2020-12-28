@@ -23,7 +23,7 @@
 					<li>
 					<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 						<a class="button border-main icon-plus-square-o"
-						href="${ctx}/anno/tocreate.action"> 添加内容</a>
+						href="${ctx}/anno/tocreate.action"> 添 加 公 告</a>
 					</c:if>
 						</li>
 					  <if condition="$iscid eq 1">
@@ -40,20 +40,20 @@
 						</script>
 					</li>-->
 					</if>
-					<li><input type="text" placeholder="请输入搜索关键字" id="key" value="${key}"
+					<li><input type="text" placeholder="请 输 入 查 询 信 息 的 关 键 字" id="key" value="${key}"
 						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" /> 
 						<a href="#" class="button border-main icon-search"
-						onclick="Sear()"> 搜索</a></li>
+						onclick="Sear()">查 询</a></li>
 				</ul>
 			</div>
 			<table class="table table-hover text-center">
 			
 				<tr>
 					<th width="5%"></th>
-					<th width="20%">时间</th>
-					<th width="40%">标题</th>
-					 
-					<th width="200">操作</th>
+					<th width="10%">时间</th>
+					<th width="15%">标题</th>
+					<th width="20%">内容</th>
+					<th width="25%">操作</th>
 				</tr>
 			
 								<%
@@ -67,7 +67,8 @@ System.out.println("lllllll"+request.getAttribute("dataList") );
 							type="checkbox" name="announcementId"
 							value="${obj.announcementId}" class="sb" /></td>
 						<td>${obj.createTime}</td>
-						<td width="10%">${obj.title}</td>
+						<td width="30%">${obj.title}</td>
+						<td>${obj.content}</td>
 						 
 						<td><div class="button-group" style="height:48px;">
 							<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
@@ -91,22 +92,26 @@ System.out.println("lllllll"+request.getAttribute("dataList") );
 					<td colspan="7" style="text-align:left;padding-left:20px;">
 					<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 						<a	href="" class="button border-red icon-trash-o"
-						style="padding:5px 15px;" onclick="DelSelect()"> 删除</a>
+						style="padding:5px 15px;" onclick="DelSelect()"> 多 选 删 除</a>
 					</c:if>
 				</tr>
+				
 				<tr>
 				
 					<td colspan="8">
+					
 						<div class="pagelist">
 						
-									<a  onclick="fanye('1')" class="shangye" href="#">上一页</a> 
+									<a  onclick="fanye('1')" href="#">上一页</a> 
 									<a  onclick="fanye('2')" href="#">${page.pageNo}</a>
 									<a  onclick="fanye('3')" href="#">${page.pageNo+1}</a>
 									<a  onclick="fanye('4')" href="#">${page.pageNo+2}</a>......
 									<a  onclick="fanye('5')" href="#">${page.totalPage}</a>
-									<a onclick="fanye('6')" class="xiaye" href="#">下一页</a>
+									<a  onclick="fanye('6')" href="#">下一页</a>
 								
-						</div></td>
+						</div>
+					</td>
+					
 				</tr>
 			</table>
 		</div>

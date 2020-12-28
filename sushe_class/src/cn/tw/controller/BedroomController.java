@@ -114,6 +114,10 @@ public class BedroomController {
 		
 		List<Bedroom> dataList=bedroomService.findPage(page);
 		model.addAttribute("dataList", dataList);
+		
+		List<Apartment> apartment=apartmentService.findPage(page);
+		model.addAttribute("apartment", apartment);
+		
 		return "/br/list.jsp";
 	}
 	public void getTotalPage(Page page){

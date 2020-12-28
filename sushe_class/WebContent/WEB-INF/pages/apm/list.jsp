@@ -18,28 +18,28 @@
 			<div class="padding border-bottom">
 				<ul class="search" style="padding-left:10px;">
 					<li>
-						<c:if test="${sessionScope.type=='root'}">
-							<a class="button border-main icon-plus-square-o" href="${ctx}/apm/tocreate.action"> 添加内容</a>
+						<c:if test="${sessionScope.type=='root'or sessionScope.type=='manager'}">
+							<a class="button border-main icon-plus-square-o" href="${ctx}/apm/tocreate.action"> 添 加 公 寓 信 息</a>
 						</c:if>
 					</li>
 					<if condition="$iscid eq 1">
-					<li>
+					<!--  <li>
 						<select  name="sex" class="input"
 							style="margin-left:30px;width:250px; line-height:17px;">
-								<option value="">按公寓类型筛选</option>
+								<option value="">按 公 寓 类 型 筛 选</option>
 								<option value="b" onclick="selectdate(this.value)">男生宿舍</option>
 								<option value="g" onclick="selectdate(this.value)">女生宿舍</option>
 						</select>
 						<script type="text/javascript">
 							$("select[name='sex']").val("${sex}");
 						</script>
-					</li>
+					</li>-->
 					</if>
 					
-					<li><input type="text" placeholder="请输入搜索关键字" id="key"
+					<li><input type="text" placeholder="请 输 入 查 询 信 息 关 键 字" id="key"
 						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" value="${key}"/> 
 						<a href="#" class="button border-main icon-search"
-						onclick="Sear()"> 搜索</a></li>
+						onclick="Sear()">查 询</a></li>
 					<script type="text/javascript">
 					</script>
 					
@@ -47,26 +47,27 @@
 			</div>
 			<table class="table table-hover text-center">
 				<tr>
-					<th width="20"></th>
-					<th width="15%">公寓名称</th>
-					<th width="15%">类型</th>
-					<th width="100">入住人数</th>
-					<th width="100">最高楼层</th>
-					<th width="100">管理员id</th>
+					<th width="5%">...</th>
+					<th width="5%">公寓名称</th>
+					<th width="5%">类型</th>
+					<th width="5%">入住人数</th>
+					<th width="5%">最高楼层</th>
+					<th width="5%">管理员编号</th>
+					<th width="5%">操作</th>
 				</tr>
 
 				<c:forEach items="${dataList}" var="obj" varStatus="status">
 					<tr class="leirong">
-						<td style="text-align:left; padding-left:20px;"><input
+						<td style="text-align:left; padding-left:5px;"><input
 							type="checkbox" name="announcementId"
-							value="${obj.apartmentId}" class="sb" /></td>
+							value="${obj.apartmentId}" class="sb" /></td>	
 						<td>${obj.apartmentName}</td>
 						<td>${obj.sex}</td>
-						<td width="10%">${obj.totalPeople}</td>
+						<td>${obj.totalPeople}</td>
 						<td>${obj.totalFloor}</td>
 						<td>${obj.managerId}</td>
 						<td><div class="button-group" style="height:50px;">
-							<c:if test="${sessionScope.type=='root'}">
+							<c:if test="${sessionScope.type=='root'or sessionScope.type=='manager'}">
 										<a class="button border-main"
 										href="${ctx}/apm/toupdate.action?apmId=${obj.apartmentId}"><span
 										class="icon-edit"></span>修改</a> <a  id="deleteBtn" class="button border-red"
@@ -82,9 +83,9 @@
 					<td style="text-align:left; padding:19px 0;padding-left:20px;">
 					<input	type="checkbox" id="checkall" /></td>
 					<td colspan="7" style="text-align:left;padding-left:20px;">
-						<c:if test="${sessionScope.type=='root'}">
+						<c:if test="${sessionScope.type=='root'or sessionScope.type=='manager'}">
 							<a	href="" class="button border-red icon-trash-o"
-							style="padding:5px 15px;" onclick="DelSelect()"> 删除</a>
+							style="padding:5px 15px;" onclick="DelSelect()">多 选 删 除</a>
 						</c:if>
 				</tr>
 				<tr>

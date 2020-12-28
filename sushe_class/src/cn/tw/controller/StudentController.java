@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSON;
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.tw.domain.Apartment;
 import cn.tw.domain.Bedroom;
+import cn.tw.domain.Classes;
 import cn.tw.domain.College;
 import cn.tw.domain.Student;
 import cn.tw.pagination.Page;
@@ -55,7 +58,7 @@ public class StudentController {
 		Integer allNum=0,bNum=0,gNum=0,bYNum=0,bNNum=0,gYNum=0,gNNum=0;
 		for(Student student:list){
 			allNum++;
-			if(student.getSex().equals("鐢�")) { 
+			if(student.getSex().equals("男")) { 
 				bNum++;
 				if(student.getBedroomId()==null) bNNum++;
 				else bYNum++;
@@ -65,8 +68,8 @@ public class StudentController {
 				else gYNum++;
 			}
 		}
-		String tips1="  璇ュ闄㈠叡鏈夊鐢熶汉鏁帮細"+allNum+" 鍏朵腑鐢风敓"+bNum+"浜猴紝濂崇敓"+gNum+"浜�<br/>  鏈垎閰嶅鑸嶇殑鐢风敓"+bNNum
-				+"  鏈垎閰嶅鑸嶇殑濂崇敓"+gNNum+"浜�";
+		String tips1="  该学院共有学生人数："+allNum+" 其中男生"+bNum+"人，女生"+gNum+"人<br/>  未分配宿舍的男生"+bNNum
+				+"  未分配宿舍的女生"+gNNum+"人";
 		
 		JSONObject json= new JSONObject();
 		json.put("tips1", tips1);
@@ -136,12 +139,13 @@ public class StudentController {
 		else
 			sex = null;
 
+	
+		map.put("key","%"+key+"%");
+		
 		map.put("status", status);
 		map.put("college", college);
 		map.put("grade", grade);
 		map.put("sex", sex);
-
-		map.put("key", "%" + key + "%");
 
 		model.addAttribute("arg", arg);
 		model.addAttribute("key", key);
@@ -175,6 +179,8 @@ public class StudentController {
 
 		List<Student> dataList = studentService.findPage(page);
 		model.addAttribute("dataList", dataList);
+		
+		
 		return "/stu/list.jsp";
 	}
 
@@ -190,6 +196,16 @@ public class StudentController {
 	public String tocreate(Model model) {
 		List<College> sList1 = collegeService.find(null);
 		model.addAttribute("sList1", sList1);
+		
+		List<Classes> cList1=classService.find(null);
+		model.addAttribute("cList1", cList1);
+		
+		List<Apartment> aList1=apartmentService.find(null);
+		model.addAttribute("aList1", aList1);
+		
+		List<Bedroom> bList1=bedroomService.find(null);
+		model.addAttribute("bList1", bList1);
+		
 		return "/stu/create.jsp";
 	}
 
@@ -213,7 +229,7 @@ public class StudentController {
 
 	
 	@RequestMapping("/stu/create.action")
-	public String create(Student stu, Model model) {
+	public String create(Student stu, Model model,HttpServletRequest request) {
 		stu.setStudentId(UUID.randomUUID().toString().substring(0, 8));
 		if (stu.getBedroomId() != null)
 			stu.setStatus("Y");
@@ -229,7 +245,7 @@ public class StudentController {
 			stu.setStatus("Y");
 		studentService.update(stu);
 		if(httpSession.getAttribute("type").equals("student")){
-			model.addAttribute("info","淇敼鎴愬姛!");
+			model.addAttribute("info","修改成功!");
 			return "/stu/info.jsp";
 		}else{
 			return "redirect:/stu/list.action";

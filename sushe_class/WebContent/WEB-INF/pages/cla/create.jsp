@@ -21,8 +21,8 @@
 			<div>
 		
 				<select id="yjlb" class="input" name="collegeId"
-					style="margin-left:30px;width:350px; line-height:17px;" >
-						<option value="">选择学院</option>
+					style="margin-left:135px;width:350px; line-height:17px;" >
+						<option value="">选 择 学 院</option>
 						 <c:forEach var="s" items="${sList}">
                              <option value="${s.collegeId}">${s.collegeName}</option>
                          </c:forEach>
@@ -52,8 +52,8 @@
 				</script>
 				<br/>      
 				<select id="floor" class="input" name="grade"
-					style="margin-left:30px;width:350px; line-height:17px;">
-						<option value="">选择年级</option>
+					style="margin-left:135px;width:350px; line-height:17px;">
+						<option value="">选 择 年 级</option>
 						<option value="d1">大一</option>
 						<option value="d2">大二</option>
 						<option value="d3">大三</option>

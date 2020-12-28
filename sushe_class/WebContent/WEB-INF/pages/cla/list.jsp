@@ -18,13 +18,13 @@
 		<div class="panel admin-panel">
 			<div class="padding border-bottom">
 				<ul class="search" style="padding-left: 10px;">
-					<li><c:if test="${sessionScope.type=='root'}">
-							<a class="button border-main icon-plus-square-o"
-								href="${ctx}/cla/tocreate.action"> 添加内容</a>
-						</c:if></li>
+					<li><c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
+						<a class="button border-main icon-plus-square-o"
+						href="${ctx}/cla/tocreate.action">添 加 班 级 信 息</a>
+					</c:if></li>
 
 					<if condition="$iscid eq 1">
-					<li><select name="arg" class="input"
+					<!--  <li><select name="arg" class="input"
 						style="margin-left: 30px; width: 250px; line-height: 17px;">
 							<option value="">按年级筛选</option>
 							<option onclick="selectdate(this.value)" value="大一">大一</option>
@@ -36,14 +36,14 @@
 							<option value="研三" onclick="selectdate(this.value)">研三</option>
 					</select> <script type="text/javascript">
 							$("select[name='arg']").val("${arg}");
-						</script></li>
+						</script></li>-->
 					</if>
 
-					<li><input type="text" placeholder="请输入搜索关键字" id="key"
+					<li><input type="text" placeholder="请 输 入 查 询 信 息 关 键 字" id="key"
 						class="input"
 						style="width: 250px; margin-left: 20px; line-height: 17px; display: inline-block"
 						value="${key}" /> <a href="#"
-						class="button border-main icon-search" onclick="Sear()"> 搜索</a></li>
+						class="button border-main icon-search" onclick="Sear()">查 询</a></li>
 					<script type="text/javascript">
 					</script>
 
@@ -57,6 +57,7 @@
 					<th width="100">辅导员电话</th>
 					<th width="100">所属学院</th>
 					<th width="100">年级</th>
+					<th width="100">操作</th>
 				</tr>
 
 				<c:forEach items="${dataList}" var="obj" varStatus="status">
@@ -73,15 +74,13 @@
 											${college.collegeName }
 										</c:if>
 									
-										
-										
 								</c:forEach>
 						</td>
 
 						<td>${obj.grade}</td>
 						<td><div class="button-group" style="height: 50px;">
 
-								<c:if test="${sessionScope.type=='root'}">
+								<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 									<a class="button border-main"
 										href="${ctx}/cla/toupdate.action?claId=${obj.classId}"><span
 										class="icon-edit"></span>修改</a>
@@ -98,14 +97,14 @@
 
 				<tr>
 
-					<c:if test="${sessionScope.type=='root'}">
+					<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 						<td style="text-align: left; padding: 19px 0; padding-left: 20px;">
 
 							<input type="checkbox" id="checkall" />
 						</td>
 						<td colspan="7" style="text-align: left; padding-left: 20px;"><a
 							href="" class="button border-red icon-trash-o"
-							style="padding: 5px 15px;" onclick="DelSelect()"> 删除</a>
+							style="padding: 5px 15px;" onclick="DelSelect()"> 多 选 删 除</a>
 					</c:if>
 				</tr>
 				<tr>

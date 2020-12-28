@@ -50,10 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findPage" parameterType="cn.tw.pagination.Page" resultMap="studentRM">
 	
 	
-			SELECT  r.student_id,r.student_name,r.sex,r.class_id,r.class_name,r.status,r.bedroom_id  ,r.student_password,
-					r.bedroom_name,r.student_no,r.grade,r.college_id,r.college_name
-				 FROM (   SELECT tt.*, @ROWNUM AS rowno   
-				          FROM (   
+			   
 			                    select student_id,student_name,sex,class_id,class_name,student_password,status,bedroom_id,bedroom_name,student_no,grade,college_id,college_name
 			                    from student 
 			                    where 1=1
@@ -74,10 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			                    								or bedroom_name like #{params.key,jdbcType=VARCHAR} )</if>
 			                    order by class_name
 				                 
-			                    )tt   
-				                WHERE #{pageSize}*#{pageNo} >=@ROWNUM   
-				                ) r
-				   WHERE r.rowno >= #{pageSize}*(#{pageNo}-1) +1
+			                   
 	</select>	
 	
 	<select id="findResultSize" parameterType="cn.tw.pagination.Page" resultType="java.lang.String">

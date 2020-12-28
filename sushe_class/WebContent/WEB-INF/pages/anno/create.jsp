@@ -13,13 +13,13 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加公告</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="${ctx}/anno/create.action">  
       
       <div class="form-group">
         <div class="label">
-          <label>公告标题：</label>
+          <label>公 告 标 题 :</label>
         </div>
         <div class="field">
           <input type="text" class="input" name="title" value=""/>
@@ -29,7 +29,7 @@
      
       <div class="form-group">
         <div class="label">
-          <label>公告内容：</label>
+          <label>公 告 内 容 : </label>
         </div>
         <div class="field">
           <textarea name="content" class="input" style="height:250px; border:1px solid #ddd;"></textarea>
@@ -44,7 +44,7 @@
           <label></label>
         </div>
         <div class="field">
-          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+          <button class="button bg-main icon-check-square-o" type="submit"> 提 交</button>
         </div>
       </div>
     </form>

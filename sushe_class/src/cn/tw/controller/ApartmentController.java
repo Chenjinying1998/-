@@ -31,8 +31,8 @@ public class ApartmentController {
 	@RequestMapping("/apm/getdata.action")
 	public String getdata(String sex,Model model) throws Exception{
 		if(UtilFuns.isNotEmpty(sex)) {
-			if(sex.equals("b")) sex="鐢�";
-			else sex="濂�";	
+			if(sex.equals("b")) sex="男";
+			else sex="女";
 		}
 		else sex=null;
 		Map paraMap= new HashMap();
@@ -64,7 +64,7 @@ public class ApartmentController {
 	public String apmlist(String sex,String key,String totalPage,Integer pageNo,Model model) throws UnsupportedEncodingException {
 		Map map = new HashMap();
 		if(sex!=null){
-			if(sex.equals("b"))	map.put("sex", "鐢�"); else if(sex.equals("g")) map.put("sex", "濂�"); else map.put("sex", null); 
+			if(sex.equals("b"))	map.put("sex", "男"); else if(sex.equals("g")) map.put("sex", "女"); else map.put("sex", null); 
 		}else map.put("sex", null);
 		if(key!=null) key=URLDecoder.decode(key, "UTF-8");
 		map.put("key","%"+key+"%");

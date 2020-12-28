@@ -35,7 +35,7 @@
         </div>
       </div>
 		<select id="sex1" class="input"  name="visitorSex"
-			style="margin-left:100px;width:100px; line-height:17px;"  >
+			style="margin-left:135px;width:100px; line-height:17px;"  >
 				<option value="">选择性别</option>
 				<option value="男">男</option>
 				<option value="女">女</option>

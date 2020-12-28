@@ -22,10 +22,10 @@
 				<ul class="search" style="padding-left:5px;">
 					<li>
 						<a class="button border-main icon-plus-square-o"
-						href="${ctx}/visit/tocreate.action"> 添加内容</a>
+						href="${ctx}/visit/tocreate.action"> 添 加 访 客 信 息 管 理</a>
 						</li>
 					<if condition="$iscid eq 1">
-					<li>
+					<!--  <li>
 						<select  id="arg1" class="input"
 							style="margin-left:0px;width:170px; line-height:17px;">
 								<option value="">按来访日期筛选</option>
@@ -38,18 +38,18 @@
 							style="margin-left:0px;width:170px; line-height:17px;">
 								<option value="">按来访宿舍筛选</option>
 						</select>
-					</li>				
+					</li>	-->			
 					
 					
 					</if>
-					<li><input type="text" placeholder="模糊查询" id="key"
-						class="input"	style="width:150px; margin-left:0px;line-height:17px;display:inline-block" value="${key}"/> 
+					<li><input type="text" placeholder="请 输 入 查 询 信 息 关 键 字" id="key"
+						class="input"	style="width:220px; margin-left:0px;line-height:17px;display:inline-block" value="${key}"/> 
 						<a href="#" class="button border-main icon-search"
-						onclick="Sear()">搜索</a></li>
-						<a href="#" class="button border-main icon-search"
-						onclick="Reset()">重置</a>					
+						onclick="Sear()">查 询</a></li>
+						<!-- <a href="#" class="button border-main icon-search"
+						onclick="Reset()">重置</a>	 -->				
 						<a href="#" class="button border-main icon-search" style="margin-left:80px;"
-						onclick="FinalSearch()">综合查询</a>					
+						onclick="FinalSearch()">综 合 查 询</a>					
 					
 				</ul>
 			</div>
@@ -68,7 +68,7 @@
 		             dataType: "json",
 		             success:function(data){
 		             	$("#arg2").empty();
-	             		$("#arg2").append('<option value="">按来访宿舍筛选</option>');
+	             		$("#arg2").append('<option value="">按 来 访 宿 舍 筛 选</option>');
 		             	$.each(data,function(index,item){
 		             		$("#arg2").append('<option value="'+item["bedroomName"]+'">'+item["bedroomName"]+'</option>');
 		             	});
@@ -128,7 +128,7 @@
 					<th width="50">来访宿舍</th>
 					<th width="130">备注</th>
 					<th width="80">日期</th>
-					<th width="100"></th>
+					<th width="100">操作</th>
 				</tr>
 
 				<c:forEach items="${dataList}" var="obj" varStatus="status">
@@ -164,7 +164,7 @@
 					<input	type="checkbox" id="checkall" /></td>
 					<td colspan="7" style="text-align:left;padding-left:20px;">
 						<a	href="" class="button border-red icon-trash-o"
-						style="padding:5px 15px;" onclick="DelSelect()"> 删除</a>
+						style="padding:5px 15px;" onclick="DelSelect()"> 多 选 删 除</a>
 				</tr>
 				<tr>
 				

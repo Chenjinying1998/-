@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../basic/base.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -18,7 +18,7 @@
   
 	<form method="post" class="form-x" action="${ctx}/stu/update.action">
       
-       <c:if test="${sessionScope.type=='student'}">
+       <c:if test="${sessionScope.type=='student' or sessionScope.type=='manager'}">
        <div class="form-group">
         <div class="label">
           <label>姓名：</label>
@@ -76,7 +76,7 @@
 				<input id="bedroomName" name="bedroomName" type="hidden" value="${obj.bedroomName}"/>
 				<input id="collegeName" name="collegeName" type="hidden" value="${obj.collegeName}"/>
   
-    <c:if test="${sessionScope.name!=null and  sessionScope.type=='root'}">
+    <c:if test="${sessionScope.name!=null and  sessionScope.type=='root' or sessionScope.type=='manager'} ">
 		<div>
 		
 				<!--根据学院取所属班级 http://localhost:8080/domt/cla/getdata.action?collegeId=2f11518b -->
@@ -198,7 +198,7 @@
 		</div>
     </c:if>
     
-    <c:if test="${sessionScope.type=='student'}">
+    <c:if test="${sessionScope.type=='student' or sessionScope.type=='manager'}">
       <div class="form-group">
         <div class="label">
           <label>学院：</label>

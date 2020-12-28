@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加可用宿舍</strong></div>
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>修改可用宿舍</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="${ctx}/br/update.action">  
       <input type="hidden" name="bedroomId" value="${obj.bedroomId}"/>
@@ -27,12 +27,14 @@
 
 		<div>
 		
-				<select id="yjlb" class="input" name="apartmentId"
-					style="margin-left:30px;width:350px; line-height:17px;" onchange="ejld(this.value)">
-						 <%-- <c:forEach var="s" items="${sList}">
-                             <option value="${s.apartmentId}"     
-                             <c:if test="${obj.apartmentId == s.apartmentId}"> selected</c:if> >${s.apartmentName}</option>
-                         </c:forEach> --%>
+				
+				  <select id="yjlb" class="input" name="apartmentId"
+					style="margin-left:132px;width:350px; line-height:17px;" onchange="ejld(this.value)">	 
+         			     <option value="">选 择 公 寓</option>
+						 <c:forEach var="s" items="${sList}">
+                             <option value="${s.apartmentId}">${s.apartmentName}</option>
+                         </c:forEach>
+				</select>
 				</select>
 				<script type="text/javascript">
 					function ejld(apmId){
@@ -58,8 +60,8 @@
 				</script>
 				<br/>      
 				<select id="floor" class="input" name="floor"
-					style="margin-left:30px;width:350px; line-height:17px;">
-						<option value="">选择楼层</option>
+					style="margin-left:132px;width:350px; line-height:17px;">
+						<option value="">选 择 楼 层</option>
 				</select>      
 				<br/>      
 		</div>

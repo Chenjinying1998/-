@@ -18,9 +18,9 @@
 			<div class="padding border-bottom">
 				<ul class="search" style="padding-left:10px;">
 					<li>
-					<c:if test="${sessionScope.type=='root'}">
+					<c:if test="${sessionScope.type=='root'or sessionScope.type=='manager'}">
 						<a class="button border-main icon-plus-square-o"
-						href="${ctx}/cl/tocreate.action"> 添加内容</a>
+						href="${ctx}/cl/tocreate.action"> 添 加 学 院</a>
 					</c:if>
 					</li>
 					<if condition="$iscid eq 1">
@@ -28,10 +28,10 @@
 					</li>
 					</if>
 					
-					<li><input type="text" placeholder="请输入搜索关键字" id="key"
+					<li><input type="text" placeholder="请 输 入 查 询 信 息 的 关 键 字" id="key"
 						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" value=""/> 
 						<a href="#" class="button border-main icon-search"
-						onclick="Sear()"> 搜索</a></li>
+						onclick="Sear()">查 询</a></li>
 					<script type="text/javascript">
 					</script>
 					
@@ -39,21 +39,21 @@
 			</div>
 			<table class="table table-hover text-center">
 				<tr>
-					<th width="20"></th>
-					<th width="20%">学院ID</th>
-					<th width="45%">学院名称</th>
-					<th width="100"></th>
+					<th width="5%"></th>
+					<th width="10%">学院编号</th>
+					<th width="15%">学院名称</th>
+					<th width="20%">操作</th>
 				</tr>
 
 				<c:forEach items="${dataList}" var="obj" varStatus="status">
 					<tr class="leirong">
-						<td style="text-align:left; padding-left:20px;"><input
+						<td style="text-align:left; padding-left:5px;"><input
 							type="checkbox" name="announcementId"
 							value="${obj.collegeId}" class="sb" /></td>
 						<td>${obj.collegeId}</td>
 						<td>${obj.collegeName}</td>
 						<td><div class="button-group" style="height:50px;">
-						<c:if test="${sessionScope.type=='root'}">
+						<c:if test="${sessionScope.type=='root'or sessionScope.type=='manager'}">
 								<a class="button border-main"
 								href="${ctx}/cl/toupdate.action?clId=${obj.collegeId}"><span
 								class="icon-edit"></span>修改</a> <a  id="deleteBtn" class="button border-red"
@@ -70,9 +70,9 @@
 					<td style="text-align:left; padding:19px 0;padding-left:20px;">
 					<input	type="checkbox" id="checkall" /></td>
 					<td colspan="7" style="text-align:left;padding-left:20px;">
-						<c:if test="${sessionScope.type=='root' }">
+						<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 							<a		href="" class="button border-red icon-trash-o"
-							style="padding:5px 15px;" onclick="DelSelect()"> 删除</a>
+							style="padding:5px 15px;" onclick="DelSelect()"> 多 选 删 除</a>
 						</c:if>
 				</tr>
 				<tr>
@@ -84,7 +84,6 @@
 									<a  onclick="fanye('3')" href="#">${page.pageNo+1}</a>
 									<a  onclick="fanye('4')" href="#">${page.pageNo+2}</a>......
 									<a  onclick="fanye('5')" href="#">${page.totalPage}</a>
-									<a onclick="fanye('6')" class="xiaye" href="#">下一页</a>
 						</div></td>
 				</tr>
 			</table>

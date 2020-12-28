@@ -8,8 +8,7 @@
 </head>
 <body>
 
-	<h3>forgeeks 已上线 ！</h3>
-	<h1>: )</h1>
-
+	<h5>欢 迎 进 入 TeamWe 宿 舍 管 理 系 统 。</h5>
+	
 </body>
 </html>

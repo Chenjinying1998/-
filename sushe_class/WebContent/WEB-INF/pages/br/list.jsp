@@ -20,7 +20,7 @@
 					<li>
 					<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 					<a class="button border-main icon-plus-square-o"
-						href="${ctx}/br/tocreate.action"> 添加内容</a>
+						href="${ctx}/br/tocreate.action"> 添 加 宿 舍 信 息</a>
 					</c:if>
 						</li>
 					<!-- <if condition="$iscid eq 1">
@@ -44,14 +44,14 @@
 						</script>
 					</li>
 					</if>-->
-					<input type="text" placeholder="N未住满，Y住满,超员" id="arg" value="${arg}" name="arg"
+					<input type="text" placeholder="N 表示未住满    Y 表示住满   超员表示超出规定人数" id="arg" value="${arg}" name="arg"
+						class="input"	style="width:355px; margin-left:20px;line-height:17px;display:inline-block" /> 
+						<a href="#" class="button border-main icon-search"
+						onclick="Sear()">查 询</a></li>
+					<li><input type="text" placeholder="请 输 入 查 询 信 息 关 键 字" id="key" value="${key}"
 						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" /> 
 						<a href="#" class="button border-main icon-search"
-						onclick="Sear()"> 搜索</a></li>
-					<li><input type="text" placeholder="请输入搜索关键字" id="key" value="${key}"
-						class="input"	style="width:250px; margin-left:20px;line-height:17px;display:inline-block" /> 
-						<a href="#" class="button border-main icon-search"
-						onclick="Sear()"> 搜索</a></li>
+						onclick="Sear()">查 询</a></li>
 				</ul>
 			</div>
 			<table class="table table-hover text-center">
@@ -61,7 +61,7 @@
 					<th width="15%">所属公寓</th>
 					<th width="15%">已住人数</th>
 					<th width="100">是否住满</th>
-					<th width="100"></th>
+					<th width="100">操作</th>
 					
 				</tr>
 
@@ -72,7 +72,14 @@
 							value="${obj.bedroomId}" class="sb" />
 							</td>
 						<td>${obj.bedroomName}</td>
-						<td>${obj.apartmentId}</td>
+						<td>
+						<c:forEach items="${apartment }" var="apartment">
+										<c:if test="${ obj.apartmentId==apartment.apartmentId}">
+											${apartment.apartmentName }
+										</c:if>
+									
+								</c:forEach>
+						</td>
 						<td width="10%">${obj.totalBed}</td>
 						<td>${obj.status}</td>
 						<td><div class="button-group" style="height:50px;">
@@ -95,7 +102,7 @@
 					<input	type="checkbox" id="checkall" /></td>
 					<td colspan="7" style="text-align:left;padding-left:20px;">
 					<a	href="" class="button border-red icon-trash-o"
-						style="padding:5px 15px;" onclick="DelSelect()"> 删除</a>
+						style="padding:5px 15px;" onclick="DelSelect()"> 多 选 删 除</a>
 				</c:if>
 				</tr>
 				<tr>

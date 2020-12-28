@@ -20,6 +20,7 @@ import cn.tw.domain.Classes;
 import cn.tw.domain.College;
 import cn.tw.pagination.Page;
 import cn.tw.service.CollegeService;
+import cn.tw.util.UtilFuns;
 
 @Controller
 public class CollegeController {
@@ -39,9 +40,12 @@ public class CollegeController {
  	}
  	
 	@RequestMapping("/cl/list.action")
-	public String cllist(String totalPage,Integer pageNo,Model model) throws UnsupportedEncodingException {
+	public String cllist(String totalPage,String key,Integer pageNo,Model model) throws UnsupportedEncodingException {
 		Map map = new HashMap();
-
+		
+		if(UtilFuns.isNotEmpty(key)) key=URLDecoder.decode(key, "UTF-8");
+		map.put("key","%"+key+"%");
+		model.addAttribute("key",key);
 		Page page= new Page();
 		page.setParams(map);
 		if(pageNo==null) pageNo=1;
@@ -95,17 +99,17 @@ public class CollegeController {
 	}
 	
 	@RequestMapping("/cl/deletebyid.action")
-	public String deletebyid(String pageNo,String totalPage,String clId, Model model) 
+	public String deletebyid(String pageNo,String totalPage,String clId, String key,Model model) 
 			throws NumberFormatException, UnsupportedEncodingException {
 		collegeService.deleteById(clId);
-		return cllist(totalPage, Integer.valueOf(pageNo), model);
+		return cllist(totalPage,null, Integer.valueOf(pageNo),model);
 	}
 	
 	@RequestMapping("/cl/delete.action")
-	public String delete(String pageNo,String totalPage,String sb, String msg,Model model) throws NumberFormatException, UnsupportedEncodingException {
+	public String delete(String pageNo,String totalPage,String sb, String msg,String key,Model model) throws NumberFormatException, UnsupportedEncodingException {
 		String[] ids=sb.split(",");
 		collegeService.delete(ids);
-		return cllist(totalPage,Integer.valueOf(pageNo), model);
+		return cllist(totalPage,null,Integer.valueOf(pageNo), model);
 	}
   
 }

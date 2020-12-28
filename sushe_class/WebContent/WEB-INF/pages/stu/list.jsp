@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../basic/base.jsp"%>
 <!DOCTYPE html>
 
@@ -20,30 +20,30 @@
 					<li>
 				<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 					<a class="button border-main icon-plus-square-o"
-						href="${ctx}/stu/tocreate.action"> 添加内容</a>
+						href="${ctx}/stu/tocreate.action"> 添 加 学 生 管 理 信 息</a>
 				</c:if>
 					</li>
 					<if condition="$iscid eq 1">
 					
-					<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
+					 <c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 					
 					
-								<li>
+								<!--<li>
 									<select  id="status" class="input"
 										style="margin-left:0px;width:150px; line-height:17px;">
-											<option value="">按是否分配宿舍筛选</option>
+											<option value="">按 是 否 分 配 宿 舍 筛 选</option>
 										<option  value="N">未分配宿舍</option>
 										<option value="Y" >已分配宿舍</option>
 									</select>
 								</li>				<li>
 									<select  id="college" class="input"
-										style="margin-left:0px;width:110px; line-height:17px;">
-											<option value="">按学院筛选</option>
+										style="margin-left:0px;width:120px; line-height:17px;">
+											<option value="">···</option>
 									</select>
 								</li>				<li>
 									<select  id="grade" class="input"
-										style="margin-left:0px;width:110px; line-height:17px;">
-											<option value="">按年级筛选</option>
+										style="margin-left:0px;width:120px; line-height:17px;">
+											<option value="">按 年 级 筛 选</option>
 										<option  value="大一">大一</option>
 										<option value="大二" >大二</option>
 										<option value="大三" >大三</option>
@@ -55,21 +55,21 @@
 								</li>		<li>
 									<select  id="sex" class="input"
 										style="margin-left:0px;width:110px; line-height:17px;">
-											<option value="">按性别筛选</option>
+											<option value="">按 性 别 筛 选</option>
 											<option value="男">男</option>
 											<option value="女">女</option>
 									</select>
 								
-								</li>
+								</li>-->
 								</if>
-								<li><input type="text" placeholder="模糊查询" id="key"
-									class="input"	style="width:100px; margin-left:0px;line-height:17px;display:inline-block" value="${key}"/> 
+								<li><input type="text" placeholder="请 输 入 查 询 信 息 关 键 字" id="key"
+									class="input"	style="width:200px; margin-left:0px;line-height:17px;display:inline-block" value="${key}"/> 
 									<a href="#" class="button border-main icon-search"
-									onclick="Sear()">搜索</a></li>
-									<a href="#" class="button border-main icon-search"
-									onclick="Reset()">重置</a>					
-									<a href="#" class="button border-main icon-search" style="margin-left:80px;"
-									onclick="FinalSearch()">综合查询</a>					
+									onclick="Sear()">查 询</a></li>
+									<!-- <a href="#" class="button border-main icon-search"
+									onclick="Reset()">重 置</a>	 -->				
+									<!-- <a href="#" class="button border-main icon-search" style="margin-left:80px; margin-top:10px;"
+									onclick="FinalSearch()">综 合 查 询</a>	 -->				
 					
 					</c:if>
 					
@@ -114,7 +114,7 @@
 						dataType:"json",
 						success:function(data){
 			             	$("#college").empty();
-		             		$("#college").append('<option value="">按学院筛选</option>');
+		             		$("#college").append('<option value="">按 学 院 筛 选</option>');
 			             	$.each(data,function(index,item){
 			             		$("#college").append('<option value="'+item["collegeId"]+'">'+item["collegeName"]+'</option>');
 			             	}             	
@@ -159,16 +159,16 @@
 
 			<table class="table table-hover text-center">
 				<tr>
-					<th width="10"></th>
-					<th width="50">姓名</th>
-					<th width="7%">学号</th>
-					<th width="5%">性别</th>
-					<th width="70">是否分配宿舍</th>
-					<th width="80">所在宿舍</th>
-					<th width="50">班级</th>
-					<th width="50">年级</th>
-					<th width="50">学院</th>
-					<th width="100"></th>
+					<th width="1%"></th>
+					<th width="2%">姓名</th>
+					<th width="3%">学号</th>
+					<th width="4%">性别</th>
+					<th width="8%">是否分配宿舍</th>
+					<th width="6%">所在宿舍</th>
+					<th width="7%">班级</th>
+					<th width="8%">年级</th>
+					<th width="9%">学院</th>
+					<th width="10%">操作</th>
 				</tr>
 
 				<c:forEach items="${dataList}" var="obj" varStatus="status">
@@ -206,7 +206,7 @@
 					<td colspan="7" style="text-align:left;padding-left:20px;">
 					<c:if test="${sessionScope.type=='root' or sessionScope.type=='manager'}">
 						<a	href="" class="button border-red icon-trash-o"
-						style="padding:5px 15px;" onclick="DelSelect()"> 删除</a>
+						style="padding:5px 15px;" onclick="DelSelect()"> 多 选 删 除</a>
 					</c:if>
 				</tr>
 				<tr>

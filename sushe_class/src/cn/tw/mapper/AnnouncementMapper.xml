@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where 1=1
 		<if test="date!=null">and create_time >= ( now() - #{date,jdbcType=VARCHAR})
 		</if>
-		<if test='key!="%null%"'>and content like #{key,jdbcType=VARCHAR}</if>
+		<if test='key!="%null%"'>and title like #{key,jdbcType=VARCHAR}</if>
 		order by create_time DESC
 	</select>
 
@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            FROM announcement
            where 1=1
            <!-- <if test="params.date!=null">and create_time >= (now()-#{params.date,jdbcType=VARCHAR})</if>  -->  
-           <if test='params.key!="%null%"'>and content like #{params.key,jdbcType=VARCHAR} </if>   
+           <if test='params.key!="%null%"'>and title like #{params.key,jdbcType=VARCHAR} </if>   
 
 		   <!-- select * from announcement where 1=1 -->
 	</select>	
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            FROM announcement
            where 1=1
            <!-- <if test="params.date!=null">and create_time >= ( now() - #{params.date,jdbcType=VARCHAR})</if>    -->
-           <if test='params.key!="%null%"'>and content like #{params.key,jdbcType=VARCHAR} </if>   
+           <if test='params.key!="%null%"'>and title like #{params.key,jdbcType=VARCHAR} </if>   
 	</select>
 
 

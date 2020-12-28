@@ -25,8 +25,8 @@
 		<div>
 		
 				<select id="yjlb" class="input" name="apartmentId"
-					style="margin-left:30px;width:350px; line-height:17px;" onchange="ejld(this.value)">
-						<option value="">选择公寓</option>
+					style="margin-left:132px;width:350px; line-height:17px;" onchange="ejld(this.value)">	 
+         			     <option value="">选 择 公 寓</option>
 						 <c:forEach var="s" items="${sList}">
                              <option value="${s.apartmentId}">${s.apartmentName}</option>
                          </c:forEach>
@@ -56,8 +56,8 @@
 				</script>
 				<br/>      
 				<select id="floor" class="input" name="floor"
-					style="margin-left:30px;width:350px; line-height:17px;">
-						<option value="">选择楼层</option>
+					style="margin-left:132px;width:350px; line-height:17px;">
+						<option value="">选 择 楼 层</option>
 				</select>      
 				<br/>      
 		</div>

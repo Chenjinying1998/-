@@ -24,9 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findPage" parameterType="cn.tw.pagination.Page" resultMap="apartmentRM">
 	
 	
-			SELECT  r.apartment_id, r.apartment_name, r.sex,manager_id, r.total_floor, r.total_people  
-				 FROM (   SELECT tt.*, @ROWNUM AS rowno   
-				          FROM (   
+			  
 			                    select apartment_id,apartment_name,sex,manager_id,total_floor,total_people
 			                    from apartment 
 			                    where 1=1
@@ -34,10 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			                    <if test="params.key!='%null%'"> and apartment_name like #{params.key,jdbcType=VARCHAR}</if>
 			                    order by apartment_name
 				                 
-			                    )tt   
-				                WHERE #{pageSize}*#{pageNo} >=@ROWNUM   
-				                ) r
-				   WHERE r.rowno >= #{pageSize}*(#{pageNo}-1) +1
+			                
 	</select>	
 	
 	<select id="findResultSize" parameterType="cn.tw.pagination.Page" resultType="java.lang.String">

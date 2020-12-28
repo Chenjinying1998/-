@@ -55,6 +55,9 @@
 				<select id="class" class="input" name="classId" onchange="setvalue1()"
 					style="margin-left:30px;width:200px; float:left; line-height:17px;">
 						<option value="">选择班级</option>
+						<%-- <c:forEach var="c" items="${cList1}">
+                             <option value="${c.classId}">${c.className}</option>
+                         </c:forEach> --%>
 				</select>
 			  <select  class="input" name="grade"
 							style="margin-left:30px; float:left; width:200px; line-height:17px;">
@@ -119,6 +122,9 @@
 				<select id="apartment" class="input" name="apartmentId"
 					style="margin-left:60px;width:250px; float:left; line-height:17px;" onchange="ejld3(this.value)">
 						<option value="">选择公寓</option>
+						<%-- <c:forEach var="a" items="${aList1}">
+                             <option value="${a.apartmentId}">${a.apartmentName}</option>
+                         </c:forEach> --%>
 				</select>
 				
 				<script type="text/javascript">
@@ -164,12 +170,15 @@
 				             	alert("eeror json");
 				             }
 						});
-						}
+						} 
 					
 				</script>
 				<select id="bedroom" class="input" name="bedroomId" onchange="setvalue2()"
 					style="margin-left:30px;width:250px; line-height:17px;float:left;" >
 						<option value="">选择宿舍</option>
+						 <%-- <c:forEach var="b" items="${bList1}">
+                             <option value="${b.bedroomId}">${b.bedroomName}</option>
+                         </c:forEach>  --%>
 				</select>      
 				<br/>      
 		</div>

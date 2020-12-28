@@ -24,9 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="findPage" parameterType="cn.tw.pagination.Page" resultMap="ClassesRM">
 
-			SELECT  r.class_id, r.class_name,r.coach,r.coach_call,r.college_id,r.grade
-				 FROM (   SELECT tt.*, @ROWNUM AS rowno   
-				          FROM (   
+			 
 			                    select class_id,class_name,coach,coach_call,college_id,grade
 			                    from classes
 			                    where 1=1
@@ -35,10 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 													  or coach like #{params.key,jdbcType=VARCHAR} 
 				 													  or coach_call like #{params.key,jdbcType=VARCHAR} ) </if>
 			                    order by class_name
-			                    )tt   
-				                WHERE #{pageSize}*#{pageNo} >=@ROWNUM   
-				                ) r
-					WHERE r.rowno >= #{pageSize}*(#{pageNo}-1) +1
+			               
 	
 	</select>	
 	

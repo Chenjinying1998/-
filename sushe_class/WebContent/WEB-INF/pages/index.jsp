@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title></title>  
+    <title>TeamWe 宿 舍 管 理 系 统</title>  
     <link rel="stylesheet" href="css/pintuer.css">
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/jquery.js"></script>   
@@ -26,7 +26,9 @@
     </c:if>
       </h1>
   </div>
-  <div class="head-l"><a class="button button-little bg-green" href="#" target="_blank">
+  
+  <div class="head-l">
+      <a class="button button-little bg-green" target="_blank">
 	  <!-- <span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
 	  <a href="#" class="button button-little bg-blue"> -->
 	  <span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;
@@ -38,42 +40,42 @@
 		
      <c:if test="${sessionScope.type=='root'}">
      	<div>
-			  <div class="leftnav-title"><strong><span class="icon-list">&nbsp&nbsp操作菜单</span></strong></div>
+			  <div class="leftnav-title"><strong><span class="icon-list">&nbsp&nbsp操 作 菜 单</span></strong></div>
 			  
-			  <h2><span class="icon-user"></span>基本管理</h2>
+			  <h2><span class="icon-user"></span>基 本 管 理</h2>
 			<!--   <ul style="display:block"> -->
 			  <ul>
 			    <li><a href="${ctx}/anno/list.action" target="right"><span class="icon-caret-right"></span>公告管理</a></li>
 			    <li><a href="${ctx}/apm/list.action" target="right"><span class="icon-caret-right"></span>公寓管理</a></li>
+			    <li><a href="${ctx}/cl/list.action" target="right"><span class="icon-caret-right"></span>学院管理</a></li> 
 			    <li><a href="${ctx}/br/list.action" target="right"><span class="icon-caret-right"></span>宿舍管理</a></li>
 			    <li><a href="${ctx}/stu/list.action" target="right"><span class="icon-caret-right"></span>学生管理</a></li>  
-			    <li><a href="${ctx}/cl/list.action" target="right"><span class="icon-caret-right"></span>学院管理</a></li>  
 			    <li><a href="${ctx}/cla/list.action" target="right"><span class="icon-caret-right"></span>班级管理</a></li>  
 			    <li><a href="${ctx}/visit/list.action" target="right"><span class="icon-caret-right"></span>访客登记管理</a></li>
 			    
 			  </ul>
 			  
-			  <h2><span class="icon-pencil-square-o"></span>分配宿舍</h2>
+			  <h2><span class="icon-pencil-square-o"></span>分 配 宿 舍</h2>
 			  <ul>
-			    <li><a href="${ctx}/statis/todisbystu.action" target="right"><span class="icon-caret-right"></span>按个人分配</a></li>
-			    <li><a href="${ctx}/statis/todisbycla.action" target="right"><span class="icon-caret-right"></span>按班级分配</a></li>
-			    <li><a href="${ctx}/statis/todisbycollege.action" target="right"><span class="icon-caret-right"></span>按学院分配</a></li>
+			    <li><a href="${ctx}/statis/todisbystu.action" target="right"><span class="icon-caret-right"></span>按 个 人 分 配</a></li>
+			    <li><a href="${ctx}/statis/todisbycla.action" target="right"><span class="icon-caret-right"></span>按 班 级 分 配</a></li>
+			    <li><a href="${ctx}/statis/todisbycollege.action" target="right"><span class="icon-caret-right"></span>按 学 院 分 配</a></li>
 			  </ul>
 			  
-			  <h2><span class="icon-pencil-square-o"></span>腾空宿舍</h2>
+			  <h2><span class="icon-pencil-square-o"></span>腾 空 宿 舍</h2>
 			  <ul>
-			    <li><a href="${ctx}/statis/toempbystu.action" target="right"><span class="icon-caret-right"></span>按个人腾空</a></li>
-			    <li><a href="${ctx}/statis/toempbyclass.action" target="right"><span class="icon-caret-right"></span>按班级腾空</a></li>
-			    <li><a href="${ctx}/statis/toempbycollege.action" target="right"><span class="icon-caret-right"></span>按学院腾空</a></li>
+			    <li><a href="${ctx}/statis/toempbystu.action" target="right"><span class="icon-caret-right"></span>按 个 人 腾 空</a></li>
+			    <li><a href="${ctx}/statis/toempbyclass.action" target="right"><span class="icon-caret-right"></span>按 班 级 腾 空</a></li>
+			    <li><a href="${ctx}/statis/toempbycollege.action" target="right"><span class="icon-caret-right"></span>按 学 院 腾 空</a></li>
 			  </ul>
 			       
-			  <h2><span class="icon-pencil-square-o"></span>系统管理</h2>
+			  <h2><span class="icon-pencil-square-o"></span>系 统 管 理</h2>
 			  
 			  <ul>
-			    <li><a href="${ctx}/man/list.action" target="right"><span class="icon-caret-right"></span>分配管理员</a></li>
+			    <li><a href="${ctx}/man/list.action" target="right"><span class="icon-caret-right"></span>分 配 管 理 员</a></li>
 			  </ul>  
 			       
-			  <h2><span class="icon-pencil-square-o"></span>统计打印</h2>
+			  <h2><span class="icon-pencil-square-o"></span>统 计 打 印</h2>
 			  <ul>
 			    <li><a href="${ctx}/statis/tostatisstubycla.action" target="right"><span class="icon-caret-right"></span>统计班级学生名单</a></li>
 			    <li><a href="${ctx}/statis/tostatisstubycollege.action" target="right"><span class="icon-caret-right"></span>统计学院学生名单</a></li>
@@ -90,38 +92,39 @@
 
      <c:if test="${sessionScope.type=='manager'}">
      	<div>
-			  <div class="leftnav-title"><strong><span class="icon-list">&nbsp&nbsp操作菜单</span></strong></div>
-			  <h2><span class="icon-user"></span>基本管理</h2>
+			  <div class="leftnav-title"><strong><span class="icon-list">&nbsp&nbsp操 作 菜 单</span></strong></div>
+			  <h2><span class="icon-user"></span>基 本 管 理</h2>
 			<!--   <ul style="display:block"> -->
 			  <ul>
-			    <li><a href="${ctx}/anno/list.action" target="right"><span class="icon-caret-right"></span>公告管理</a></li>
-			    <li><a href="${ctx}/br/list.action" target="right"><span class="icon-caret-right"></span>宿舍管理</a></li>
-			    <li><a href="${ctx}/stu/list.action" target="right"><span class="icon-caret-right"></span>学生管理</a></li>  
-			    <li><a href="${ctx}/cla/list.action" target="right"><span class="icon-caret-right"></span>班级管理</a></li>  
-			    <li><a href="${ctx}/visit/list.action" target="right"><span class="icon-caret-right"></span>访客登记管理</a></li>
-			    
+			  	<li><a href="${ctx}/anno/list.action" target="right"><span class="icon-caret-right"></span>公 告 管 理</a></li>
+			  	<li><a href="${ctx}/cl/list.action" target="right"><span class="icon-caret-right"></span>学 院 管 理</a></li> 
+			    <li><a href="${ctx}/apm/list.action" target="right"><span class="icon-caret-right"></span>公 寓 管 理</a></li>
+			    <li><a href="${ctx}/br/list.action" target="right"><span class="icon-caret-right"></span>宿 舍 管 理</a></li>
+			    <li><a href="${ctx}/cla/list.action" target="right"><span class="icon-caret-right"></span>班 级 管 理</a></li> 
+			    <li><a href="${ctx}/stu/list.action" target="right"><span class="icon-caret-right"></span>学 生 管 理</a></li>  
+			    <li><a href="${ctx}/visit/list.action" target="right"><span class="icon-caret-right"></span>访 客 登 记 管 理</a></li>
 			  </ul>
 			  
-			  <h2><span class="icon-pencil-square-o"></span>分配宿舍</h2>
+			  <h2><span class="icon-pencil-square-o"></span>分 配 宿 舍</h2>
 			  <ul>
-			    <li><a href="${ctx}/statis/todisbystu.action" target="right"><span class="icon-caret-right"></span>按个人分配</a></li>
-			    <li><a href="${ctx}/statis/todisbycla.action" target="right"><span class="icon-caret-right"></span>按班级分配</a></li>
+			   <%--  <li><a href="${ctx}/statis/todisbystu.action" target="right"><span class="icon-caret-right"></span>按 个 人 分 配</a></li> --%>
+			    <li><a href="${ctx}/statis/todisbycla.action" target="right"><span class="icon-caret-right"></span>按 班 级 分 配</a></li>
 			  </ul>
 			  
-			  <h2><span class="icon-pencil-square-o"></span>腾空宿舍</h2>
+			  <h2><span class="icon-pencil-square-o"></span>腾 空 宿 舍</h2>
 			  <ul>
-			    <li><a href="${ctx}/statis/toempbystu.action" target="right"><span class="icon-caret-right"></span>按个人腾空</a></li>
-			    <li><a href="${ctx}/statis/toempbyclass.action" target="right"><span class="icon-caret-right"></span>按班级腾空</a></li>
+			   <%--  <li><a href="${ctx}/statis/toempbystu.action" target="right"><span class="icon-caret-right"></span>按 个 人 腾 空</a></li> --%>
+			    <li><a href="${ctx}/statis/toempbyclass.action" target="right"><span class="icon-caret-right"></span>按 班 级 腾 空</a></li>
 			  </ul>
 			       
-			  <h2><span class="icon-pencil-square-o"></span>统计打印</h2>
+			  <h2><span class="icon-pencil-square-o"></span>统 计 打 印</h2>
 			  <ul>
-			    <li><a href="${ctx}/statis/tostatisstubycla.action" target="right"><span class="icon-caret-right"></span>统计班级学生名单</a></li>
-			    <li><a href="${ctx}/statis/tostatisstubycollege.action" target="right"><span class="icon-caret-right"></span>统计学院学生名单</a></li>
-			    <li><a href="${ctx}/statis/toviewdisbycla.action" target="right"><span class="icon-caret-right"></span>统计班级宿舍分配</a></li>
-			    <li><a href="${ctx}/statis/toviewdisbycollege.action" target="right"><span class="icon-caret-right"></span>统计学院宿舍分配</a></li>
-			    <li><a href="${ctx}/toprintstu.action" target="right"><span class="icon-caret-right"></span>打印所有学生信息</a></li>
-			    <li><a href="${ctx}/toprintbr.action" target="right"><span class="icon-caret-right"></span>打印所有宿舍信息</a></li>
+			    <li><a href="${ctx}/statis/tostatisstubycla.action" target="right"><span class="icon-caret-right"></span>统 计 班 级 学 生 名 单</a></li>
+			    <li><a href="${ctx}/statis/tostatisstubycollege.action" target="right"><span class="icon-caret-right"></span>统 计 学 院 学 生 名 单</a></li>
+			    <li><a href="${ctx}/statis/toviewdisbycla.action" target="right"><span class="icon-caret-right"></span>统 计 班 级 宿 舍 分 配</a></li>
+			    <li><a href="${ctx}/statis/toviewdisbycollege.action" target="right"><span class="icon-caret-right"></span>统 计 学 院 宿 舍 分 配</a></li>
+			    <li><a href="${ctx}/toprintstu.action" target="right"><span class="icon-caret-right"></span>打 印 所 有 学 生 信 息</a></li>
+			    <li><a href="${ctx}/toprintbr.action" target="right"><span class="icon-caret-right"></span>打 印 所 有 宿 舍 信 息</a></li>
 			  </ul>  
 			</div>
 			</div>

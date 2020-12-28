@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -46,9 +47,10 @@ public class ClassesController {
  	}
  	
 	@RequestMapping("/cla/list.action")
-	public String clalist(String arg,String key,String totalPage,Integer pageNo,Model model) throws UnsupportedEncodingException {
+	public String clalist(String arg,String key,String totalPage,Integer pageNo,Model model,HttpServletRequest request) throws UnsupportedEncodingException {
 		Map map = new HashMap();
-		if(UtilFuns.isNotEmpty(arg)) arg=URLDecoder.decode(arg, "UTF-8");else arg=null;
+		arg=request.getParameter("arg");
+		//if(UtilFuns.isNotEmpty(arg)) arg=URLDecoder.decode(arg, "UTF-8");else arg=null;
 		if(UtilFuns.isNotEmpty(key)) key=URLDecoder.decode(key, "UTF-8");
 		map.put("key","%"+key+"%");
 		map.put("arg", arg);
@@ -90,6 +92,9 @@ public class ClassesController {
 	public String tocreate(String clId,Model model) {
 		List<College> sList=collegeService.find(null);
 		model.addAttribute("sList",sList);
+		
+		List<College> colleges=collegeService.find(null);
+		model.addAttribute("colleges", colleges);
 		return "/cla/create.jsp";
 	}
 
@@ -164,17 +169,17 @@ public class ClassesController {
 	}
 	
 	@RequestMapping("/cla/deletebyid.action")
-	public String deletebyid(String pageNo,String totalPage,String claId, Model model) 
+	public String deletebyid(String pageNo,String totalPage,String claId, Model model,HttpServletRequest request) 
 			throws NumberFormatException, UnsupportedEncodingException {
 		classesService.deleteById(claId);
-		return clalist(null,null,totalPage, Integer.valueOf(pageNo), model);
+		return clalist(null,null,totalPage, Integer.valueOf(pageNo), model,request);
 	}
 	
 	@RequestMapping("/cla/delete.action")
-	public String delete(String pageNo,String totalPage,String sb, String msg,Model model) throws NumberFormatException, UnsupportedEncodingException {
+	public String delete(String pageNo,String totalPage,String sb, String msg,Model model,HttpServletRequest request) throws NumberFormatException, UnsupportedEncodingException {
 		String[] ids=sb.split(",");
 		classesService.delete(ids);
-		return clalist(null,null,totalPage,Integer.valueOf(pageNo), model);
+		return clalist(null,null,totalPage,Integer.valueOf(pageNo), model,request);
 	}
 	/*	
 
